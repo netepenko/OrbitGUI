@@ -1,0 +1,74 @@
+#-------------------------------------------------------------------------------
+# control file for running orbit
+#-------------------------------------------------------------------------------
+
+machine = MAST-U 
+
+input_root = ../
+
+#-------------------------------------------------------------------------------
+# filename consists of input_root + machine + input_dir_ext
+#-------------------------------------------------------------------------------
+
+# this does not usually need to be changed
+
+input_dir_ext = _input/temp
+
+nml_ext = .nml
+
+#-------------------------------------------------------------------------------
+# input file w/o extension all input files should have nml as extension
+#-------------------------------------------------------------------------------
+input_file = orbit3_input_file
+static_dir = ../MAST-U_input/temp
+dynamic_dir = ../MAST-U_input/temp
+
+# total number of detectors
+N_det = 9
+
+
+static_file = static_file.nml
+dynamic_file = dynamic_file.data   
+
+#-------------------------------------------------------------------------------
+# output information
+#-------------------------------------------------------------------------------
+
+# input file hass been optimized
+make_new_nml = True
+
+output_root = ../
+output_dir_ext = _output/temp/
+
+#-------------------------------------------------------------------------------
+# location of orbit code
+#-------------------------------------------------------------------------------
+run_command = ..\orbit3\bin\orbit3
+
+#-------------------------------------------------------------------------------
+# commands and parameters for run_all_par.py
+#-------------------------------------------------------------------------------
+
+orbit_command = python ./run_orbit_nml_par.py 
+
+plot_command = python ./plot_orbits_combined_par.py
+
+#-------------------------------------------------------------------------------
+# plotting controls
+#-------------------------------------------------------------------------------
+
+plot_em = True
+
+em_filled = True
+
+plot_psirel = True
+
+psirel_filled = False
+
+# set true to plot all orbits
+plot_ensemble = False
+
+all_yellow = False
+
+# number of orbits to plot 
+n_orbits_to_plot = 8
