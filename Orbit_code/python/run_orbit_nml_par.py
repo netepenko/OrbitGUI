@@ -29,7 +29,7 @@ def symlink(source, link_name):
     if __CSL(link_name, source, flags) == 0:
         raise ctypes.WinError()
 
-os.symlink = symlink
+
 #for symlink test
 #os.symlink('./a','./a_link')
 import sys
@@ -42,9 +42,11 @@ from LT import parameterfile as PF
 
 
 # Finding and deleting orb directory. This step is necessary to avoid an error which will occur if run_orbit_nml.py is not fully executed.
-
 if os.path.exists('orb') == True:
-	os.rmdir('orb')
+	try:
+		os.rmdir('orb')
+	except:
+		os.remove('orb')
 	print "./orb directory has been removed."
 
 parser = AG.ArgumentParser()
@@ -105,11 +107,15 @@ print '--------------------------------------------------------------'
 # orbit goes
 
 try:
-    os.symlink(output_dir, '.\\orb')
+    os.symlink(output_dir, './orb')
 except:
-    msg = sys.exc_info()[1]
-    print "problem with link : ", msg
-    sys.exit()
+    os.symlink = symlink
+    try:
+        os.symlink(output_dir, '.\\orb')
+    except:
+        msg = sys.exc_info()[1]
+        print "problem with link : ", msg
+        sys.exit()
 
 #write the command file
 
@@ -168,7 +174,10 @@ os.remove('./orbit_input')
 os.remove('./orbit_error')
 os.remove('./collimator.data')
 #for windows backslashes used
-os.rmdir('.\\orb')   
+try:
+    os.rmdir('.\\orb') 
+except:
+    os.remove('./orb')
 
 os.remove('./flux.data')
 os.remove('./flux_limit.data')

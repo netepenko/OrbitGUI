@@ -10,6 +10,7 @@
 #
 """
 import subprocess as su
+import platform
 #import pd
 #import sys
 #------------------------------------------------------------
@@ -21,12 +22,21 @@ def run_command(cmd, out_file, err_file, **kwargs):
     error_f = open(err_file, "w")
     #print '\n'+ str(kwargs) +'\n'
     #raw_input('in run command')
-    subp = su.Popen(cmd, \
-                    shell=True, \
-                    stdout=output_f, \
-                    stderr=error_f, \
-                    #close_fds=True, \
-                    **kwargs)
+    if platform.system()=='Windows':
+        cmd = cmd.replace('/', "\\")	
+        subp = su.Popen(cmd, \
+                        shell=True, \
+                        stdout=output_f, \
+                        stderr=error_f, \
+                        #close_fds=True, \
+                        **kwargs)
+    else:
+    	subp = su.Popen(cmd, \
+                        shell=True, \
+                        stdout=output_f, \
+                        stderr=error_f, \
+                        close_fds=True, \
+                        **kwargs)
     subp.communicate(None)
     #raw_input('end of popen')
     error_f.close()

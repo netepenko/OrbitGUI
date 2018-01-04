@@ -290,7 +290,9 @@ def main(control_file):
 
         staticf = open(static_dir + '/' + stat_file, 'r').readlines()
         # opens and reads static file
-
+        staticf = [s.replace('\r\n', '\n') for s in staticf]
+        #this is for linux compatibility
+        
         bothf = open(nml_dir + nml_filename + nml_ext, 'w+')
         # creates nml writable file
 
