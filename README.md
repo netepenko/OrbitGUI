@@ -8,5 +8,5 @@ To save the input parametes one can use the Save input button, it will prepare a
 detectors file, control file, and orbit input nml file) based on the parameters entered and will save them in selected folder.
 When Run Orbit button is pressed, the input files prepared again in case some parameters were changed, and placed in
 MAST-U_input/temp folder and teh orbti code exectued with that input files. After the orbit code finishes executing, the ouput files
-are placed in MAST-U_output/temp folder. If onewants to copy those files to some other directory to save them (they are being
+are placed in MAST-U_output/temp folder. If one wants to copy those files to some other directory to save them (they are being
 overwriten every time the orbit runs) the Save output button is created.
