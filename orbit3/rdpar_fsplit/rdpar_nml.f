@@ -164,8 +164,8 @@ c	  NX & NY subdivide the aperture in pieces
 
       namelist /detection/
      > RDist, ZDist, phdangle, ZDET,ADET,
-     > S, SSTP, tol, D, RC,
-     > XC, YC, XD, YD, NX,NY
+     > S, SSTP, tol, D, RC, RCD,
+     > XC, YC, XD, YD, NX, NY, NSEG
 
 c	  IFOR is 0 for time-reversed orbit, 1 o.w.
 c	  IPL1 is 0 for no orbit plot, 1,2,3=# plots
@@ -252,7 +252,10 @@ c settinng up the port variables
 			zds(i) = zdist(detector_number(i))
 
 			phda(i) = phdangle(detector_number(i))*dtr
-
+            
+          rcol(i) = rc(detector_number(i))
+          
+          rcdet(i) = rcd(detector_number(i))
 		end do
 
 !      if (vary_theta_port) then

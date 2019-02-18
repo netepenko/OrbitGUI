@@ -267,7 +267,7 @@ c     calculate the bin widths of the opening
 c     do the same with the detector for the moment use the same binning as the collimator
       XD_bin = XD/real(NX)
       YD_bin = YD/real(NY)
-
+      
       
 c     start of the bin centers
       offset_x = real(NX+1)/real(NX)
@@ -279,44 +279,67 @@ c     start of the bin centers
       print *, 'XD_bin, YD_bin = ',  XD_bin, YD_bin
       
       
-      DO I=1,NX
-         ix = i
-         XS = (REAL(2*I)/NX - offset_x)*XC
-c     determine the direction of the line connecting the 
-c     center of the coll. bin and the center of the detector
-         do id = 1, NX
-            ixd = id
-            XSD = (REAL(2*ixd)/NX - offset_x)*XD
-            XTOT=XAL + XSD + XS
-            ALPH=ATAN(XTOT/D)
-D           write (8,*) ' xs= ', xs, ' xtot= ', xtot, ' alph= ', alph,
-D     .                 ' dalph= ', dalph, ' beold= ', beold
-
-c     WB bin entrance and detector in y-direction
-            DO J=1,NY
-               iy = j
-               YS = (REAL(2*J)/NY - offset_y)*YC
-               DO jd = 1,NY
-                  jyd = jd
-                  YSD = (REAL(2*jyd)/NY - offset_y)*YD
-c                 determine the direction of the line connecting the 
-c                 center of the coll. bin and the center of the detector        
-                  YTOT=YBE + YS + YSD
-                  BETA=ATAN(YTOT/D)
-c                 store the particle direction in the detector system
-c                   GYRO=ALPH
-c                  PITCH=BETA
-                  GYRO=0.
-                  PITCH=0.
-                  print *, XAL, XS, XSD, XTOT, YBE, YS, YSD, YTOT
-D                 write (8,*) ' ys= ', ys, '0 ytot= ', ytot, ' beta= ',
-D     .                       beta, ' dbeta= ', dbeta, ' gyro= ', gyro, ' pitch= ', pitch
-            
+      DO I=1,NSEG
+         IF(I .EQ. 1) then
+            XS = 0.
+            YS = 0.
+         ELSE
+            XS = rcol(jdet)/SQRT(real(NSEG))*COS(2.*PI*(I-1)/(NSEG-1))
+            YS = rcol(jdet)/SQRT(real(NSEG))*SIN(2.*PI*(I-1)/(NSEG-1))
+         end if
+         print *, 'xs, ys =', xs, ys
+         DO ID = 1,NSEG
+            print *, 'iteration = ', i, id
+            IF(ID .EQ. 1) then
+                XSD = 0.
+                YSD = 0.
+            ELSE
+                XSD = rcdet(jdet)/SQRT(real(NSEG))*COS(2.*PI*(ID-1)/(NSEG-1))
+                YSD = rcdet(jdet)/SQRT(real(NSEG))*SIN(2.*PI*(ID-1)/(NSEG-1))
+            end if
+            print *, 'xsd, ysd =', xsd, ysd
+            XTOT = XS - XSD
+            YTOT = YS - YSD
+            GYRO=0.
+            PITCH=0.
+c      DO I=1,NX
+c         ix = i
+c         XS = (REAL(2*I)/NX - offset_x)*XC
+cc     determine the direction of the line connecting the 
+cc     center of the coll. bin and the center of the detector
+c         do id = 1, NX
+c            ixd = id
+c            XSD = (REAL(2*ixd)/NX - offset_x)*XD
+c            XTOT=XAL + XSD + XS
+c            ALPH=ATAN(XTOT/D)
+cD           write (8,*) ' xs= ', xs, ' xtot= ', xtot, ' alph= ', alph,
+cD     .                 ' dalph= ', dalph, ' beold= ', beold
+c
+cc     WB bin entrance and detector in y-direction
+c            DO J=1,NY
+c               iy = j
+c               YS = (REAL(2*J)/NY - offset_y)*YC
+c               DO jd = 1,NY
+c                  jyd = jd
+c                  YSD = (REAL(2*jyd)/NY - offset_y)*YD
+cc                 determine the direction of the line connecting the 
+cc                 center of the coll. bin and the center of the detector        
+c                  YTOT=YBE + YS + YSD
+c                  BETA=ATAN(YTOT/D)
+cc                 store the particle direction in the detector system
+cc                   GYRO=ALPH
+cc                  PITCH=BETA
+c                  GYRO=0.
+c                  PITCH=0.
+c                  print *, XAL, XS, XSD, XTOT, YBE, YS, YSD, YTOT
+cD                 write (8,*) ' ys= ', ys, '0 ytot= ', ytot, ' beta= ',
+cD     .                       beta, ' dbeta= ', dbeta, ' gyro= ', gyro, ' pitch= ', pitch
+c            
 C.................INITIALIZE POSITION.
 c                 to be precise one should convert the xs/ys into toroidal coord to take the shift in the collimator
 c                 into account which is at the moment ignored
-c                  zs = 0.
-                  zs = -D
+                  zs = 0.
+c                  zs = -D
                 
 c                 transformation from detector coordinate system to NSTX coordinate system and add to detector center position
 c                 added rotation around z by phd angle                  
@@ -414,10 +437,10 @@ c                calculcate the acceptance
 c                for rectangular shape
 c                detector x-direction
 c                detector y-direction
-                 accept_x = accept(XC_bin, XD_bin, D, XTOT)
-                 accept_y = accept(YC_bin, YD_bin, D, YTOT)
-                 accept_tot = accept_x*accept_y
-c     
+c                 accept_x = accept(XC_bin, XD_bin, D, XTOT)
+c                 accept_y = accept(YC_bin, YD_bin, D, YTOT)
+c                 accept_tot = accept_x*accept_y
+                 accept_tot = (PI*rcol(jdet)*rcdet(jdet)/nseg)**2/(D**2+xtot**2+ytot**2)
 c                add sum for current orbit
                  SUM = SUM + SDL * accept_tot
 c                calculate eff. for current orbit
@@ -443,21 +466,24 @@ c     j : coll. y-index
 c     id: det.  x-index
 c     jdL det.  y-index
                  
-                 write(orbit_id, '(i7)')  jdet*10000 + 1000*i + 100*j + 10*id + jd
+                 write(orbit_id, '(i7)')  detector_number(jdet)*10000 + 100*i + id
+c                 1000*i + 100*j + 10*id + jd
                  orbit_fname = TRIM(orbit_dir)//
      >                TRIM(orbit_head)//
      >                TRIM(ADJUSTL(orbit_id))//
      >                TRIM(orbit_tail)
                  print *, 'writing to ', orbit_fname
                  call write_orbit(effic, accept_tot, sdel, sdv , n, jdet)
-
+    
                  IF(EFFIC .LT. EFFLIM) then
-                    PRINT 149, i, j, id, jd, n, riptch, effic, EFFLIM
+                    PRINT 149, i, id, n, riptch, effic, EFFLIM
+c                    j, id, jd, n, riptch, effic, EFFLIM
                  else
-                    print 148, i, j, id, jd, n, riptch, effic			
+                    print 148, i, id, n, riptch, effic	
+c                    j, id, jd, n, riptch, effic			
                  endif
-              enddo
-           enddo
+c              enddo
+c           enddo
         enddo
       enddo
 c
@@ -642,11 +668,13 @@ C......INCLUDE ALL THE CONSTANT FACTORS IN THE SUMMED EFFICIENCY
       
       RETURN
       
- 149  FORMAT(' i=', i6, ' j=', i6,  ' id=', i6, ' jd=', i6, ' n=', i6, ' Pitch angle=', f10.3,
+c 149  FORMAT(' i=', i6, ' j=', i6,  ' id=', i6, ' jd=', i6, ' n=', i6, ' Pitch angle=', f10.3,
+ 149  FORMAT(' i=', i6, ' id=', i6, ' n=', i6, ' Pitch angle=', f10.3,
      .     ' deg, effic=', 1pe11.3, 
      .     ' efflim=', e11.3, /, ' Efficiency less than lower limit, ',
      .     'so orbit will not be plotted')
- 148  FORMAT(' i=', i6, ' j=', i6,  ' id=', i6, ' jd=', i6, ' n=', i6, ' Pitch angle=', f10.3,
+c 148  FORMAT(' i=', i6, ' j=', i6,  ' id=', i6, ' jd=', i6, ' n=', i6, ' Pitch angle=', f10.3,
+ 148  FORMAT(' i=', i6, ' id=', i6, ' n=', i6, ' Pitch angle=', f10.3,
      .     ' deg, effic=', 1pe11.3)
       
       END

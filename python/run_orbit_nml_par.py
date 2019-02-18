@@ -66,7 +66,6 @@ def run_command(cmd, out_file, err_file, **kwargs):
                         close_fds=True, \
                         **kwargs)
     subp.communicate(None)
-    #raw_input('end of popen')
     error_f.close()
     output_f.close()
     return subp.returncode
@@ -107,8 +106,13 @@ try:
     os.mkdir(output_dir)
 except:
     SU.rmtree(output_dir)
-    os.mkdir(output_dir)
-
+    for retry in range(100):
+        try:
+            os.mkdir(output_dir)
+            break
+        except:
+            print "making \temp\ folder failed, retrying..."
+    
 print '--------------------------------------------------------------'
 print 'Calculation using : ', input_dir + input_file
 print 'ALL output in : ', output_dir

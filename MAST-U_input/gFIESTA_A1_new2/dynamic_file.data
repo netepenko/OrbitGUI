@@ -12,7 +12,7 @@
 # detector_use - id numbers of detectors to be used for calculations
 #------------------------------------------------------------------------------
 
-#\ detector_to_use = 1, 2, 3, 4, 5, 6, 7, 8
+#\ detector_to_use = 1, 2, 3, 4
 
 
 
@@ -28,10 +28,10 @@
 #------------------------------------------------------------------------------
 
 #\ RDist = 1.61
-#\ RDist_offset = 0.00952 
-#\ ZDist = 0.12
-#\ PHDangle = 79.3
-#\ RP_rotation = 30.0
+#\ RDist_offset = 0.0
+#\ ZDist = 0.0
+#\ PHDangle = 79.0
+#\ RP_rotation = 0.0
 
 
 
@@ -43,12 +43,7 @@
 #------------------------------------------------------------------------------
 
 #! detector_id[i,0]/ ch[i,1]/ phi_port_base[f,2]/ theta_port_base[f,3]/ detector_horizontal_offset[f,4]/ detector_radial_axis_offset[f,5]/ detector_height_offest[f,6]/  det_type[s,7]/
-1 0 0.0 25.0 -17.3 0.0    27.5 Probe
-2 1 0.0 37.0  17.3 5.51   18.6 Probe
-3 2 0.0 42.0 -17.3 35.87  27.4 Probe
-4 3 0.0 53.0  17.3 47.68  17.3 Probe
-5 4 0.0 56.0 -17.3 78.27  27.3 Probe
-6 5 0.0 65.0  17.3 91.12  19.2 Probe
-7 6 0.0 70.0 -17.3 127.97 30.6 Probe
-8 7 0.0 80.0  17.3 129.07 25.8 Probe
-9 8 0.0 80.0  65.0 1600.  25.8 Fixed
+1      0      30.0   40.0   33.15  68.11  30.014 Probe  
+2      1      35.0   40.0   16.11  75.07  38.311 Probe  
+3      2      40.0   40.0   42.97  87.69  13.981 Probe  
+4      3      45.0   40.0   28.11  96.44  24.414 Probe  

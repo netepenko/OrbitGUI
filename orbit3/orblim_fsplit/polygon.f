@@ -23,8 +23,6 @@
         
           results = 0
         
-          print *, 'results = ', results
-        
           do k = 1, nd
         
              ! n = len(poly)

@@ -311,11 +311,11 @@ class Ui_MainWindow(object):
     def selecteFile(self):
         fileDialog = QtWidgets.QFileDialog(self.centralwidget)
         fileDialog.setDirectory('../MAST-U_efit')
-        self.efitFile = fileDialog.getOpenFileName()
+        efitFile = fileDialog.getOpenFileName()
         fileDialog.destroy()
-        if self.efitFile[0] != '':
-            self.ifdir = os.path.relpath(os.path.dirname(self.efitFile[0])).replace(os.path.sep,"/")
-            self.efitFile = self.efitFile[0].rsplit('g', 1)[-1]
+        if efitFile[0] != '':
+            self.ifdir = os.path.relpath(os.path.dirname(efitFile[0])).replace(os.path.sep,"/")
+            self.efitFile = efitFile[0].rsplit('g', 1)[-1]
             self.efitDisp.setText(os.path.splitext(self.efitFile)[0])
             # create directories in input and output for future use
             if not os.path.exists('../MAST-U_input/g' +

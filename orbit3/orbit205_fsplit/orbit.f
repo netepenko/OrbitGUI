@@ -234,7 +234,6 @@ C      ITERS(1)=1
 !            CLOSE(UNIT=24)
 !            stop
 !         ELSEIF (I.EQ.1) THEN
-
 		do j = 1, detec
      		port = ports(j)
 			portph = portsph(j)
@@ -243,7 +242,7 @@ C      ITERS(1)=1
 			al0 = al0s(j)
 			zd = zds(j)
 			phd = phda(j)
-			call chrien(detector_number(j))
+			call chrien(j)
 
 		end do
 

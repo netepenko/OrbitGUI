@@ -3,6 +3,12 @@ import LT.box as B
 import glob as G
 import os
 import numpy as np
+#destination folder
+dest = 'C:/Users/Alex/Desktop/Tracks_new/'
+try:
+    os.makedirs(dest)
+except:
+    print "Directory already exists, will overwrite the files in it"
 #conv to inches
 conv=1#39.37
 
@@ -27,9 +33,9 @@ for f in files:
     y = B.get_data(d, 'y')
     z = B.get_data(d, 'z')
     
-    fo ='C:/Users/Alex/Desktop/Tracks/' + os.path.splitext(os.path.basename(f))[0]+ ".dat" 
+    fo = dest + os.path.splitext(os.path.basename(f))[0]+ ".dat" 
 #    os.path.splitext(f)[0]+'.dat'
-    o = open(fo,'w')
+    o = open(fo,'w+')
     for i, xx in enumerate(x):
         yy = y[i]
         zz = z[i]

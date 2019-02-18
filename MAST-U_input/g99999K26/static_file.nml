@@ -1,6 +1,6 @@
  &general
     coment = 'MAST-U orbits'            ! comment     
-    ifname = 'FIESTA_A1_new2.dat'       ! efit file name (letter 'g' omitted at the begining of the file name) 
+    ifname = '99999K26'                 ! efit file name (letter 'g' omitted at the begining of the file name)
     ifdir = '../MAST-U_efit'            ! directory for efit files
     limfnam =  'MASTLIMIT00.DAT'        ! limiter file name
     limfdir = '../MAST-U_limiter'       ! limiter directory
@@ -76,27 +76,19 @@
     SSTP = 2.0                          ! maximum orbit length in m
     tol = 1.e-5                         ! integrator precision
 
-    D = 0.0354                          ! detector-collimator spacing (m)
+    D = 0.04                          ! detector-collimator spacing (m)
 
-    RC(1) = 2.15e-3                     ! outer collimator radius (m)
-    RC(2) = 2.15e-3
-    RC(3) = 2.15e-3
-    RC(4) = 2.15e-3
-    RC(5) = 2.15e-3
-    RC(7) = 2.15e-3
-    RC(8) = 2.15e-3
-    RC(9) = 2.15e-3
+    RC(1) = 1.5e-3                     ! outer collimator radius (m)
+    RC(2) = 1.5e-3
+    RC(3) = 1.5e-3
+    RC(4) = 1.5e-3
+   
 
-    RCD(1) = 2.15e-3                     ! close to detector collimator radius (m)
-    RCD(2) = 2.15e-3
-    RCD(3) = 2.15e-3
-    RCD(4) = 2.15e-3
-    RCD(5) = 2.15e-3
-    RCD(7) = 2.15e-3
-    RCD(8) = 2.15e-3
-    RCD(9) = 2.15e-3
-
-
+    RCD(1) = 1.5e-3                     ! close to detector collimator radius (m)
+    RCD(2) = 1.5e-3
+    RCD(3) = 1.5e-3
+    RCD(4) = 1.5e-3
+       
     XC = 0.0013                         ! collimator size in m (half width in m) [5mm/2] (for rectangle approximation)
     YC = 0.0013                         ! reduced from 2.5 to 1.8 to account for circ. opening
 
