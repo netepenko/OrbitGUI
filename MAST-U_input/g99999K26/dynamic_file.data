@@ -27,11 +27,11 @@
 # RP_rotation - rotation angle of RP around its own axis
 #------------------------------------------------------------------------------
 
-#\ RDist = 1.61
+#\ RDist = 1.56
 #\ RDist_offset = 0.0
 #\ ZDist = 0.0
 #\ PHDangle = 79.0
-#\ RP_rotation = 0.0
+#\ RP_rotation = 10.0
 
 
 

@@ -1,16 +1,16 @@
  &general
     coment = 'MAST-U orbits'            ! comment     
-    ifname = 'FIESTA_A1_new2.dat'       ! efit file name (letter 'g' omitted at the begining of the file name)
+    ifname = '99999K26'                 ! efit file name (letter 'g' omitted at the begining of the file name)
     ifdir = '../MAST-U_efit'            ! directory for efit files
     limfnam =  'MASTLIMIT00.DAT'        ! limiter file name
     limfdir = '../MAST-U_limiter'       ! limiter directory
     efflim = -1.                        ! eff. cut-off
-    bfield_scale = -1.0                 ! scale factor for B-field
+    bfield_scale = 1.01                 ! scale factor for B-field
 /
  
  &control
     IFOR = 0                            ! 0 time reversed orbit, 1 forward orbit
-    IPOLDIR = 0                         ! 0 do not reverse pol. field, 1 reverse poloidal field
+    IPOLDIR = 1                         ! 0 do not reverse pol. field, 1 reverse poloidal field
     IPL1 = 2                            ! 0=DONT PLOT ORBIT ;2,3=2,3 VIEWS (IPL1 neg, plot all in same plot)
     IRMN = 0                            ! IRMN is 1 to plot minimum minor radius of
     iflxplt = 0
@@ -74,15 +74,15 @@
     channel_number(3)= 2
     channel_number(4)= 3
 
-    theta_port(1)= 40.4914111979
-    theta_port(2)= 40.2912667735
-    theta_port(3)= 40.9104604152
-    theta_port(4)= 40.7115579403
+    theta_port(1)= 45.0160397047
+    theta_port(2)= 45.6531786047
+    theta_port(3)= 47.5661030656
+    theta_port(4)= 48.5914221204
 
-    phi_port(1)= 29.268829128
-    phi_port(2)= 34.6468412313
-    phi_port(3)= 39.0591708174
-    phi_port(4)= 44.388877246
+    phi_port(1)= 36.7367580237
+    phi_port(2)= 42.1327456527
+    phi_port(3)= 46.2853628583
+    phi_port(4)= 51.6203348986
 
     !protons
     part_energy = 3.0                   ! particle energy (MeV)
@@ -91,20 +91,20 @@
 /
 
  &detection
-    ZDist(1)= 0.030014
-    ZDist(2)= 0.038311
-    ZDist(3)= 0.013981
-    ZDist(4)= 0.024414
+    ZDist(1)= 0.0353144569886
+    ZDist(2)= 0.0405264419679
+    ZDist(3)= 0.0212302593892
+    ZDist(4)= 0.0289243467563
 
-    RDist(1)= 1.67843739669
-    RDist(2)= 1.68514700753
-    RDist(3)= 1.69823371684
-    RDist(4)= 1.70667151078
+    RDist(1)= 1.6283411264
+    RDist(2)= 1.63509595352
+    RDist(3)= 1.64817277658
+    RDist(4)= 1.65660588894
 
-    PHDangle(1)= 80.1316946349
-    PHDangle(2)= 79.5477558126
-    PHDangle(3)= 80.4498960918
-    PHDangle(4)= 79.9437417695
+    PHDangle(1)= 79.9653723335
+    PHDangle(2)= 79.3228231936
+    PHDangle(3)= 80.3868195614
+    PHDangle(4)= 79.8108497107
 
     !3He
  !  ZDET = 2.                            ! Z of detected particle
@@ -120,26 +120,17 @@
 
     D = 0.04                          ! detector-collimator spacing (m)
 
-    RC(1) = 1.5e-3                     ! outer collimator radius (m)
-    RC(2) = 1.5e-3
-    RC(3) = 1.5e-3
-    RC(4) = 1.5e-3
-    RC(5) = 1.5e-3
-    RC(6) = 1.5e-3
-    RC(7) = 1.5e-3
-    RC(8) = 1.5e-3
-    RC(9) = 1.5e-3
+    RC(1) = 1.463e-3                     ! outer collimator radius (m)
+    RC(2) = 1.47e-3
+    RC(3) = 1.497e-3
+    RC(4) = 1.526e-3
+   
 
-    RCD(1) = 1.5e-3                     ! close to detector collimator radius (m)
-    RCD(2) = 1.5e-3
-    RCD(3) = 1.5e-3
-    RCD(4) = 1.5e-3
-    RCD(5) = 1.5e-3
-    RCD(6) = 1.5e-3
-    RCD(7) = 1.5e-3
-    RCD(8) = 1.5e-3
-    RCD(9) = 1.5e-3
-    
+    RCD(1) = 1.463e-3                     ! close to detector collimator radius (m)
+    RCD(2) = 1.47e-3
+    RCD(3) = 1.497e-3
+    RCD(4) = 1.526e-3
+       
     XC = 0.0013                         ! collimator size in m (half width in m) [5mm/2] (for rectangle approximation)
     YC = 0.0013                         ! reduced from 2.5 to 1.8 to account for circ. opening
 
