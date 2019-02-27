@@ -4,7 +4,7 @@ import glob as G
 import os
 import numpy as np
 #destination folder
-dest = 'C:/Users/Alex/Desktop/Tracks_new/'
+dest = 'C:/Users/Alex/Desktop/Tracks4Det/'
 try:
     os.makedirs(dest)
 except:

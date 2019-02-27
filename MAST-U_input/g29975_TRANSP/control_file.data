@@ -1,0 +1,81 @@
+#-------------------------------------------------------------------------------
+# control file for running orbit through run_all_par.py
+#-------------------------------------------------------------------------------
+
+
+
+#-------------------------------------------------------------------------------
+# input_dir - location of the *.nml file being passed to the Orbit as an input
+# input_file - name of a *.nml file in input_dir directory being
+# passed to the Orbit as an input
+#-------------------------------------------------------------------------------
+
+input_dir = ../MAST-U_input/temp/
+input_file = orbit3_input_file.nml
+
+
+
+#-------------------------------------------------------------------------------
+# if Orbit input file needs to be updated using the changed parameters from
+# dynmamic_file and static_file this flag should be set to True
+#-------------------------------------------------------------------------------
+
+make_new_nml = True
+
+
+
+#-------------------------------------------------------------------------------
+# static_dir - location of static input *.nml file
+# static_file - name of static input *nml file
+# dynamic_dir - location of dynmaic input *.data file
+# dynamic_file - name of dynmaic input *.data file
+# staic and dynamic files are used to create new Orbit input .nml file in case
+# the make_new_nml flag is set to True
+#-------------------------------------------------------------------------------
+
+static_dir = ../MAST-U_input/temp/
+static_file = static_file.nml
+
+dynamic_dir = ../MAST-U_input/temp/
+dynamic_file = dynamic_file.data   
+
+
+
+#-------------------------------------------------------------------------------
+# Orbit code information
+#-------------------------------------------------------------------------------
+# orbit_exec - Orbit code executable file with path relative to run_all_par.py
+# output_dir - directory where the Orbit output results will be placed
+#-------------------------------------------------------------------------------
+
+orbit_exec = ../orbit3/bin/orbit3
+output_dir = ../MAST-U_output/temp/
+
+
+
+#-------------------------------------------------------------------------------
+# This block specifies what python scripts should be used by run_all_par.py
+# to run the Orbit code after it prepares the Orbit input file and what script
+# to use for plotting the Orbit result trajectories
+#-------------------------------------------------------------------------------
+# commands and parameters for run_all_par.py
+#-------------------------------------------------------------------------------
+
+orbit_command = python ./run_orbit_nml_par.py 
+plot_command = python ./plot_orbits_combined_par.py
+
+#-------------------------------------------------------------------------------
+# plotting controls used by plot_command python script
+#-------------------------------------------------------------------------------
+
+draw_top_view = True
+plot_em = True
+em_filled = True
+plot_psirel = True
+psirel_filled = False
+
+# set true to plot all orbits
+plot_ensemble = False
+all_yellow = False
+# number of orbits to plot 
+n_orbits_to_plot = 8

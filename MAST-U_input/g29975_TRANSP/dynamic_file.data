@@ -43,7 +43,7 @@
 #------------------------------------------------------------------------------
 
 #! detector_id[i,0]/ ch[i,1]/ phi_port_base[f,2]/ theta_port_base[f,3]/ detector_horizontal_offset[f,4]/ detector_radial_axis_offset[f,5]/ detector_height_offest[f,6]/  det_type[s,7]/
-1 1 30.0 40.0 -33.12 28.32 30.014 Probe
-2 2 35.0 40.0 -16.11 21.36 38.311 Probe
-3 3 40.0 40.0 -42.97  8.75 13.981 Probe
-4 0 45.0 40.0 -28.11  0.0  24.414 Probe
+1      1      30.0   40.0   -33.12 28.32  30.014 Probe  
+2      2      35.0   40.0   -16.11 21.36  38.311 Probe  
+3      3      40.0   40.0   -42.97 8.75   13.981 Probe  
+4      0      45.0   40.0   -28.11 0.0    24.414 Probe  

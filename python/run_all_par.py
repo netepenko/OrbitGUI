@@ -148,7 +148,7 @@ def main(control_file):
 
     
     
-    ##############################Making Calculations##########################
+##################################Making Calculations##########################
     # indexes of fixed detectors
     fixed_dets = np.where(det_type == 'Fixed')
     
@@ -183,8 +183,38 @@ def main(control_file):
     phi_port[fixed_dets] = ppb[fixed_dets]/dtr
     theta_port[fixed_dets] = tpb[fixed_dets]/dtr
     
-    
-
+#######################Detector orientation vectors for SolidWorks##############   
+#    output_folder = '../MAST-U_output/g29975_TRANSP/DetectorsVectors/' 
+#    vlen = 0.1 #vector lenght in meters
+#    for k in range(N_det):
+#        geom = open(output_folder + 'track' + str(k)+ '.dat', 'w+')
+#        
+#        xx=RDist[k]*np.cos(phdangle[k]*dtr)
+#        yy=RDist[k]*np.sin(phdangle[k]*dtr)
+#        zz=ZDist[k]
+#        
+#        geom.write('{}  {}  {}\n'.format(xx,yy,zz))
+#
+#        print xx, yy, zz
+#        
+#        vx =  -vlen*np.cos(phi_port[k]*dtr)*np.sin(theta_port[k]*dtr)
+#        vy =  -vlen*np.sin(phi_port[k]*dtr)
+#        vz =   vlen*np.cos(phi_port[k]*dtr)*np.cos(theta_port[k]*dtr)
+#
+#        #print "V", vx, vy, vz
+#        
+#        v1 = vx*np.cos(phdangle[k]*dtr) - vy*np.sin(phdangle[k]*dtr)
+#        v2 = vx*np.sin(phdangle[k]*dtr) + vy*np.cos(phdangle[k]*dtr)
+#        v3 = vz
+#        
+#        #print "Vr", v1,v2,v3
+#        xx = xx + v1
+#        yy = yy + v2
+#        zz = zz + v3
+#        
+#        print xx, yy, zz
+#        geom.write('{}  {}  {}\n'.format(xx,yy,zz))
+#        geom.close()
 
 #########################Creating New Dictionary###############################
 
