@@ -395,6 +395,7 @@ class Ui_MainWindow(object):
             try: 
                 controlf = open(cfile).readlines()
                 print 'Using %s for new input files preparation' %cfile
+                break
             except:
                 print "No control file in %s" %os.path.dirname(cfile)
 
@@ -526,8 +527,32 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
+    sys.exit(app.exec_())
+# scan in R probe and rotation angle
+    import matplotlib.pyplot as pl
+    rdist = np.linspace(1.6, 1.75, 5)
+    rp_rot = np.linspace(-10, 30, 5)
+    for r in rdist:
+        for alph in rp_rot:
+            try:
+                directory='../MAST-U_output/g29904_new/R_dist_%f_Rot_%f'%(r,alph)
+                os.makedirs(directory)
+                ui.Rdist.setValue(r)
+                ui.RProt.setValue(alph)
+                ui.Execute()
+                f=pl.gcf()
+                f.savefig(directory+'/Figure.png')
+                pl.close(f)
+                src_files = os.listdir('../MAST-U_output/temp')
+                for file_name in src_files:
+                    full_file_name = os.path.join('../MAST-U_output/temp', file_name)
+                    if (os.path.isfile(full_file_name)):
+                        shutil.copy(full_file_name, directory)
+                print len(src_files), 'orbit output files were coppied to ', directory
+            except:
+                print 'Something went wrong', r, alph
 #    ui.selectFile()
 #    ui.Execut()
 #    ui.plotTraj()
 #    ui.populate()
-    sys.exit(app.exec_())
+

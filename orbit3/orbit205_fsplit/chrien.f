@@ -284,8 +284,8 @@ c     start of the bin centers
             XS = 0.
             YS = 0.
          ELSE
-            XS = rcol(jdet)/SQRT(real(NSEG))*COS(2.*PI*(I-1)/(NSEG-1))
-            YS = rcol(jdet)/SQRT(real(NSEG))*SIN(2.*PI*(I-1)/(NSEG-1))
+            XS = rcol(jdet)/2*(1+1/SQRT(real(NSEG)))*COS(2.*PI*(I-1)/(NSEG-1))
+            YS = rcol(jdet)/2*(1+1/SQRT(real(NSEG)))*SIN(2.*PI*(I-1)/(NSEG-1))
          end if
          print *, 'xs, ys =', xs, ys
          DO ID = 1,NSEG
@@ -294,8 +294,8 @@ c     start of the bin centers
                 XSD = 0.
                 YSD = 0.
             ELSE
-                XSD = rcdet(jdet)/SQRT(real(NSEG))*COS(2.*PI*(ID-1)/(NSEG-1))
-                YSD = rcdet(jdet)/SQRT(real(NSEG))*SIN(2.*PI*(ID-1)/(NSEG-1))
+                XSD = rcdet(jdet)/2*(1+1/SQRT(real(NSEG)))*COS(2.*PI*(ID-1)/(NSEG-1))
+                YSD = rcdet(jdet)/2*(1+1/SQRT(real(NSEG)))*SIN(2.*PI*(ID-1)/(NSEG-1))
             end if
             print *, 'xsd, ysd =', xsd, ysd
             XTOT = XS - XSD
