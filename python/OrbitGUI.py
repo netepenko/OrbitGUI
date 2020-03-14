@@ -199,7 +199,7 @@ class Ui_MainWindow(object):
         try:
             dd = B.get_file(dfile)
         except:
-            print "Couldn't open dynamic file to load parameters inputs"
+            print("Couldn't open dynamic file to load parameters inputs")
             return
         dpar = dd.par
 
@@ -258,10 +258,10 @@ class Ui_MainWindow(object):
             try:
                 staticf = open(sfile).readlines()
                 self.static_file = sfile
-                print 'Using %s for new input files preparation' %sfile
+                print('Using %s for new input files preparation' %sfile)
                 break
             except:
-                print "No static file in %s" %os.path.dirname(sfile)
+                print("No static file in %s" %os.path.dirname(sfile))
         
         for line in staticf:
             if 'bfield_scale' in line:
@@ -354,7 +354,7 @@ class Ui_MainWindow(object):
             full_file_name = os.path.join('../MAST-U_input/temp', file_name)
             if (os.path.isfile(full_file_name)) and (file_name != '.gitignore'):
                 shutil.copy(full_file_name, directory)
-        print 'Input files were copied to ', directory
+        print('Input files were copied to ', directory)
 
     def saveOutput(self):
         fileDialog = QtWidgets.QFileDialog(self.centralwidget)
@@ -369,7 +369,7 @@ class Ui_MainWindow(object):
             full_file_name = os.path.join('../MAST-U_output/temp', file_name)
             if (os.path.isfile(full_file_name)):
                 shutil.copy(full_file_name, directory)
-        print len(src_files), 'orbit output files were coppied to ', directory
+        print(len(src_files), 'orbit output files were coppied to ', directory)
 
 
     def errormsg(self, text):
@@ -394,10 +394,10 @@ class Ui_MainWindow(object):
         for cfile in cfile:
             try: 
                 controlf = open(cfile).readlines()
-                print 'Using %s for new input files preparation' %cfile
+                print('Using %s for new input files preparation' %cfile)
                 break
             except:
-                print "No control file in %s" %os.path.dirname(cfile)
+                print("No control file in %s" %os.path.dirname(cfile))
 
         ncontrol = open(cfile_new, 'w+')
         
@@ -410,7 +410,7 @@ class Ui_MainWindow(object):
     #                continue
                 ncontrol.write(line)
         except:
-            print "Couldn't prepare control file"
+            print("Couldn't prepare control file")
             return
         ncontrol.close()
 
@@ -476,7 +476,7 @@ class Ui_MainWindow(object):
         try:
             staticf = open(self.static_file).readlines()
         except:
-            print 'Something went wrong with static file'
+            print('Something went wrong with static file')
             
         nstatic = open(sfile_new, 'w+')
         for line in staticf:
@@ -548,9 +548,9 @@ if __name__ == "__main__":
                     full_file_name = os.path.join('../MAST-U_output/temp', file_name)
                     if (os.path.isfile(full_file_name)):
                         shutil.copy(full_file_name, directory)
-                print len(src_files), 'orbit output files were coppied to ', directory
+                print(len(src_files), 'orbit output files were coppied to ', directory)
             except:
-                print 'Something went wrong', r, alph
+                print('Something went wrong', r, alph)
 #    ui.selectFile()
 #    ui.Execut()
 #    ui.plotTraj()

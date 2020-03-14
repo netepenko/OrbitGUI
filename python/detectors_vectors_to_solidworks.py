@@ -183,24 +183,24 @@ def main(control_file, output_folder, vlen):
         
         geom.write('{}  {}  {}\n'.format(xx,yy,zz))
 
-        print xx, yy, zz
+        print(xx, yy, zz)
         
         vx =  -vlen*np.cos(phi_port[k]*dtr)*np.sin(theta_port[k]*dtr)
         vy =  -vlen*np.sin(phi_port[k]*dtr)
         vz =   vlen*np.cos(phi_port[k]*dtr)*np.cos(theta_port[k]*dtr)
 
-        print "V", vx, vy, vz
+        print("V", vx, vy, vz)
         
         v1 = vx*np.cos(phdangle[k]*dtr) - vy*np.sin(phdangle[k]*dtr)
         v2 = vx*np.sin(phdangle[k]*dtr) + vy*np.cos(phdangle[k]*dtr)
         v3 = vz
         
-        print "Vr", v1,v2,v3
+        print("Vr", v1,v2,v3)
         xx = xx + v1
         yy = yy + v2
         zz = zz + v3
         
-        print xx, yy, zz
+        print(xx, yy, zz)
         geom.write('{}  {}  {}\n'.format(xx,yy,zz))
         geom.close()
 

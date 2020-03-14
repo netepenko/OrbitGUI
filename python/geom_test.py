@@ -18,7 +18,7 @@ pattern  = 'track_1????.data'
 files = G.glob('C:/Users/Alex/Desktop/Orbit_code/Trajectories_GUI/MAST-U_output/gFIESTA_A1_new2.dat/' + pattern)
 
 nf = len(files)
-print 'found ', nf , ' files' 
+print('found ', nf , ' files') 
 
 plane = []
 norm = []

@@ -14,11 +14,11 @@ def calc_orb_efit(shot, RDist, RP_rotation):
     #------------------------------------------------------------
 
     allfiles = os.listdir('../MAST-U_efit/') 
-    files = filter(lambda x: '_'+str(shot)+'_' in x, allfiles)
+    files = [x for x in allfiles if '_'+str(shot)+'_' in x]
     #print files
     #print type(files)
     #sys.exit()
-    times=map(lambda f: float(f.rsplit('_',1)[-1]), files)
+    times=[float(f.rsplit('_',1)[-1]) for f in files]
     #nearest=min(enumerate(times), key=lambda x: abs(x[1]-t))
     #print nearest
     #efile = files[nearest[0]][1:]

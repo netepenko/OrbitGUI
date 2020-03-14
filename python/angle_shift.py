@@ -20,7 +20,7 @@ files_c = G.glob('C:/Users/Alex/Desktop/OrbitGUI/Orbit_code/MAST-U_output/start_
 files_d = G.glob('C:/Users/Alex/Desktop/OrbitGUI/Orbit_code/MAST-U_output/start_at_detector/' + pattern)
 
 nf = len(files_c) + len(files_d)
-print 'found ', nf , ' files' 
+print('found ', nf , ' files') 
 
 angle = []
 
@@ -50,7 +50,7 @@ for i,f in enumerate(files_c):
     
     angle.append(np.arccos(np.dot(dr_cn,dr_dn))/dtr)
 result=np.array(angle)
-print result.max()
-print result.mean()
+print(result.max())
+print(result.mean())
 #h = B.histo(result, bins=20)
 #h.plot()

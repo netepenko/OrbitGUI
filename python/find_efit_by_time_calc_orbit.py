@@ -16,7 +16,7 @@ files = os.listdir('../MAST-U_efit/')
 #print files
 #print type(files)
 
-times=map(lambda f: float(f.rsplit('_',1)[-1]), files)
+times=[float(f.rsplit('_',1)[-1]) for f in files]
 nearest=min(enumerate(times), key=lambda x: abs(x[1]-t))
 #print nearest
 efile = files[nearest[0]][1:]

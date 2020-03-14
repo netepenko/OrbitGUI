@@ -231,7 +231,7 @@ def main(control_file):
             'detectors': detectors
          }
 
-    PAK = PA.keys()
+    PAK = list(PA.keys())
     PAG = PA.get
 
 #   ######################Make a new NML file#########################

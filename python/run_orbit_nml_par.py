@@ -81,7 +81,7 @@ if os.path.exists('orb') == True:
 		os.rmdir('orb')
 	except:
 		os.remove('orb')
-	print "./orb directory has been removed."
+	print("./orb directory has been removed.")
 
 
 # parsing arguments
@@ -111,12 +111,12 @@ except:
             os.mkdir(output_dir)
             break
         except:
-            print "making \temp\ folder failed, retrying..."
+            print("making \temp\ folder failed, retrying...")
     
-print '--------------------------------------------------------------'
-print 'Calculation using : ', input_dir + input_file
-print 'ALL output in : ', output_dir
-print '--------------------------------------------------------------'
+print('--------------------------------------------------------------')
+print('Calculation using : ', input_dir + input_file)
+print('ALL output in : ', output_dir)
+print('--------------------------------------------------------------')
 
 
 # create a symbolic link called ./orb where the default track output of orbit goes
@@ -128,7 +128,7 @@ except:
         os.symlink(output_dir, '.\\orb')
     except:
         msg = sys.exc_info()[1]
-        print "problem with link : ", msg
+        print("problem with link : ", msg)
         sys.exit()
 
 #write the command file to run orb3
@@ -147,10 +147,10 @@ input_f.close()
 
 for l in errors:
     if l.find('Fortran runtime error:') >=0:
-        print l
+        print(l)
         sys.exit(-1)
     if l.find('No such file or directory') >0:
-        print l
+        print(l)
         sys.exit(-1)
 
 try:
@@ -161,9 +161,9 @@ try:
     SU.copy('orbit_error', output_dir + 'orbit_error')
     #SU.copy('collimator.data',output_dir + '/collimator.data')
 except:
-    print '--------------------------------------------------------------'
-    print 'problem running orbit'
-    print '--------------------------------------------------------------'
+    print('--------------------------------------------------------------')
+    print('problem running orbit')
+    print('--------------------------------------------------------------')
     sys.exit(-1)
 
 try:
@@ -173,9 +173,9 @@ try:
     SU.copy('limiter_drawing.data', output_dir + 'limiter_drawing.data')
     SU.copy('fort.8', output_dir + 'fort.8')
 except:
-    print '--------------------------------------------------------------'
-    print 'problem with flux data (orbit)'
-    print '--------------------------------------------------------------'
+    print('--------------------------------------------------------------')
+    print('problem with flux data (orbit)')
+    print('--------------------------------------------------------------')
     sys.exit(-1)
 
 #remove temp. files
