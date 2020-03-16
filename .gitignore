@@ -13,4 +13,5 @@
 *.o
 *.d
 *.a
+*.bak
 .DS_Store
