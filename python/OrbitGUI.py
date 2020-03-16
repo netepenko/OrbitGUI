@@ -31,35 +31,31 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab),
                                   "Dynamic Input")
 
-        self.rootDisp = QtWidgets.QTextEdit(self.tab)
-        self.rootDisp.setGeometry(QtCore.QRect(40, 10, 140, 23))
-        self.rootDisp.setReadOnly(True)
-
         self.efitLabel = QtWidgets.QLabel(self.tab)
-        self.efitLabel.setGeometry(QtCore.QRect(200, 10, 50, 23))
+        self.efitLabel.setGeometry(QtCore.QRect(40, 10, 50, 23))
         self.efitLabel.setText('EFIT File:')
 
         self.efitDisp = QtWidgets.QTextEdit(self.tab)
-        self.efitDisp.setGeometry(QtCore.QRect(280, 10, 140, 23))
+        self.efitDisp.setGeometry(QtCore.QRect(90, 10, 140, 23))
         self.efitDisp.setReadOnly(True)
 
         self.efitButton = QtWidgets.QPushButton(self.tab)
-        self.efitButton.setGeometry(QtCore.QRect(450, 10, 120, 23))
+        self.efitButton.setGeometry(QtCore.QRect(260, 10, 120, 23))
         self.efitButton.clicked.connect(self.selecteFile)
         self.efitButton.setText('Select EFIT file')
         self.efitButton.setToolTip('Select geqdsk file (MHD equilibrium '
                                    ' magnetic field configuration)\nFile must'
-                                   ' be located in MACHINE/efit folder')
+                                   ' be located in MAST-U/efit folder')
 
         self.dynamicfButton = QtWidgets.QPushButton(self.tab)
-        self.dynamicfButton.setGeometry(QtCore.QRect(580, 10, 120, 23))
+        self.dynamicfButton.setGeometry(QtCore.QRect(450, 10, 120, 23))
         self.dynamicfButton.clicked.connect(self.selectdFile)
         self.dynamicfButton.setText('Select Dynamic file')
         self.dynamicfButton.setToolTip('Select saved file to load'
                                        ' parametes or enter them manually')
 
         self.saveInpBut = QtWidgets.QPushButton(self.tab)
-        self.saveInpBut.setGeometry(QtCore.QRect(650, 10, 120, 23))
+        self.saveInpBut.setGeometry(QtCore.QRect(640, 10, 120, 23))
         self.saveInpBut.clicked.connect(self.saveInput)
         self.saveInpBut.setText('Save input')
         self.saveInpBut.setToolTip('Saves control, dynamic, static,'
@@ -212,18 +208,11 @@ class Ui_MainWindow(object):
             det_use = np.array(dpar.get_value('detector_to_use').split(','),
                           dtype=int)
         except:
-            try:
-                det_use = np.array(int(dpar.get_value('detector_to_use')))
-            except:
-                print( 'detector_to_use is not set, using all')
-                det_use = None
+            det_use = np.array(int(dpar.get_value('detector_to_use')))
 
         # get the assigned channel numbers
         detector_id = B.get_data(dd, 'detector_id')
-        # id det_use is not set use all
-        if det_use is None:
-            det_use = detector_id
-            
+        
         # total number of detectors in dynamic file
         N_det = len(detector_id)
         
@@ -263,12 +252,8 @@ class Ui_MainWindow(object):
         
 
         # open static file to read some data (below is a list of possible static file locations)
-        sfile=['../MACHINE/input/g' + self.efitFile.rsplit('.')[0] + '/static_file.nml', 
-               '../MACHINE/input/temp/static_file.nml',
-               os.path.dirname(dfile) + '/static_file.nml', 
-               '../MACHINE/input/sample_input_files/static_file.nml']
-        
-        print('sfiles :', sfile)
+        sfile=['../MACHINE/input/g' + self.efitFile.rsplit('.')[0] + '/static_file.nml', '../MACHINE/input/temp/static_file.nml',
+               os.path.dirname(dfile) + '/static_file.nml', '../MACHINE/input/sample_input_files/static_file.nml']
         for sfile in sfile:
             try:
                 staticf = open(sfile).readlines()
@@ -409,7 +394,7 @@ class Ui_MainWindow(object):
         for cfile in cfile:
             try: 
                 controlf = open(cfile).readlines()
-                print('Using %s for new control files preparation' %cfile)
+                print('Using %s for new input files preparation' %cfile)
                 break
             except:
                 print("No control file in %s" %os.path.dirname(cfile))
@@ -543,7 +528,6 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
-
 # scan in R probe and rotation angle
     import matplotlib.pyplot as pl
     rdist = np.linspace(1.6, 1.75, 5)
