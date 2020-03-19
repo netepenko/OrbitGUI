@@ -18,51 +18,66 @@ colors = ['red', 'green', 'blue', 'yellow', 'magenta', 'cyan', 'orange',
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.resize(800, 600)
+        MainWindow.resize(920, 600)
         MainWindow.setWindowTitle("Orbits calculation")
+        self.curdir = os.curdir
+        self.root = ''
         self.centralwidget = QtWidgets.QWidget(MainWindow)
 
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
-        self.tabWidget.setGeometry(QtCore.QRect(10, 10, 780, 580))
+        self.tabWidget.setGeometry(QtCore.QRect(10, 10, 900, 580))
         self.tabWidget.setAutoFillBackground(True)
 
         self.tab = QtWidgets.QWidget()
         self.tabWidget.addTab(self.tab, "")
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab),
-                                  "Dynamic Input")
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), "Dynamic Input")
+
+        self.rootLabel = QtWidgets.QLabel(self.tab)
+        self.rootLabel.setGeometry(QtCore.QRect(30, 10, 70, 23))
+        self.rootLabel.setText('Root :')
+
+        self.rootDisp = QtWidgets.QTextEdit(self.tab)
+        self.rootDisp.setGeometry(QtCore.QRect(90, 10, 140, 23))
+        self.rootDisp.setReadOnly(True)
 
         self.efitLabel = QtWidgets.QLabel(self.tab)
-        self.efitLabel.setGeometry(QtCore.QRect(40, 10, 50, 23))
+        self.efitLabel.setGeometry(QtCore.QRect(250, 10, 60, 23))
         self.efitLabel.setText('EFIT File:')
 
         self.efitDisp = QtWidgets.QTextEdit(self.tab)
-        self.efitDisp.setGeometry(QtCore.QRect(90, 10, 140, 23))
+        self.efitDisp.setGeometry(QtCore.QRect(310, 10, 140, 23))
         self.efitDisp.setReadOnly(True)
 
+        self.rootButton = QtWidgets.QPushButton(self.tab)
+        self.rootButton.setGeometry(QtCore.QRect(80, 30, 160, 23))
+        self.rootButton.clicked.connect(self.selectRoot)
+        self.rootButton.setText('Select root directory')
+        self.rootButton.setToolTip('Select the root directory file ')
+        
         self.efitButton = QtWidgets.QPushButton(self.tab)
-        self.efitButton.setGeometry(QtCore.QRect(260, 10, 120, 23))
+        self.efitButton.setGeometry(QtCore.QRect(320, 30, 120, 23))
         self.efitButton.clicked.connect(self.selecteFile)
         self.efitButton.setText('Select EFIT file')
         self.efitButton.setToolTip('Select geqdsk file (MHD equilibrium '
                                    ' magnetic field configuration)\nFile must'
-                                   ' be located in MAST-U/efit folder')
+                                   ' be located in MACHINE/efit folder')
 
         self.dynamicfButton = QtWidgets.QPushButton(self.tab)
-        self.dynamicfButton.setGeometry(QtCore.QRect(450, 10, 120, 23))
+        self.dynamicfButton.setGeometry(QtCore.QRect(500, 30, 140, 23))
         self.dynamicfButton.clicked.connect(self.selectdFile)
         self.dynamicfButton.setText('Select Dynamic file')
         self.dynamicfButton.setToolTip('Select saved file to load'
                                        ' parametes or enter them manually')
 
         self.saveInpBut = QtWidgets.QPushButton(self.tab)
-        self.saveInpBut.setGeometry(QtCore.QRect(640, 10, 120, 23))
+        self.saveInpBut.setGeometry(QtCore.QRect(700, 30, 120, 23))
         self.saveInpBut.clicked.connect(self.saveInput)
         self.saveInpBut.setText('Save input')
         self.saveInpBut.setToolTip('Saves control, dynamic, static,'
                                    ' orbit3_input files into selected folder')
 
         self.Rdist = QtWidgets.QDoubleSpinBox(self.tab)
-        self.Rdist.setGeometry(QtCore.QRect(40, 50, 150, 22))
+        self.Rdist.setGeometry(QtCore.QRect(40, 80, 150, 22))
         self.Rdist.setMinimum(0.0)
         self.Rdist.setMaximum(2.0)
         self.Rdist.setDecimals(3)
@@ -72,7 +87,7 @@ class Ui_MainWindow(object):
         self.Rdist.setToolTip('Radial position of reciprocating probe')
 
         self.Zdist = QtWidgets.QDoubleSpinBox(self.tab)
-        self.Zdist.setGeometry(QtCore.QRect(40, 80, 150, 22))
+        self.Zdist.setGeometry(QtCore.QRect(40, 110, 150, 22))
         self.Zdist.setMinimum(-2.0)
         self.Zdist.setMaximum(2.0)
         self.Zdist.setSingleStep(0.1)
@@ -81,49 +96,13 @@ class Ui_MainWindow(object):
         self.Zdist.setToolTip('Vertical position of reciprocating probe')
 
         self.RProt = QtWidgets.QDoubleSpinBox(self.tab)
-        self.RProt.setGeometry(QtCore.QRect(230, 50, 150, 22))
+        self.RProt.setGeometry(QtCore.QRect(210, 80, 170, 22))
         self.RProt.setMinimum(-180)
         self.RProt.setMaximum(180)
         self.RProt.setSingleStep(1)
         self.RProt.setPrefix("RP_rotation = ")
         self.RProt.setSuffix(" deg")
         self.RProt.setToolTip('Reciprocating probe rotation angle')
-
-        self.PHD = QtWidgets.QDoubleSpinBox(self.tab)
-        self.PHD.setGeometry(QtCore.QRect(230, 80, 150, 22))
-        self.PHD.setMinimum(-180)
-        self.PHD.setMaximum(180)
-        self.PHD.setSingleStep(1)
-        self.PHD.setPrefix("PHDangle = ")
-        self.PHD.setSuffix(" deg")
-        self.PHD.setToolTip('Toroidal angle of the port')
-
-        self.bfs = QtWidgets.QDoubleSpinBox(self.tab)
-        self.bfs.setGeometry(QtCore.QRect(420, 50, 150, 22))
-        self.bfs.setMinimum(-100)
-        self.bfs.setMaximum(100)
-        self.bfs.setSingleStep(1)
-        self.bfs.setPrefix("bfield_scale = ")
-        self.bfs.setToolTip('Scaling coefficient applied to magnetic field')
-
-        self.trajl = QtWidgets.QDoubleSpinBox(self.tab)
-        self.trajl.setGeometry(QtCore.QRect(610, 50, 150, 22))
-        self.trajl.setMinimum(0.01)
-        self.trajl.setMaximum(10.0)
-        self.trajl.setSingleStep(0.1)
-        self.trajl.setPrefix("SSTP = ")
-        self.trajl.setSuffix(" m")
-        self.trajl.setToolTip('Maximum orbit length in meters')
-        
-        self.trajs = QtWidgets.QDoubleSpinBox(self.tab)
-        self.trajs.setGeometry(QtCore.QRect(610, 80, 150, 22))
-        self.trajs.setMinimum(0.0001)
-        self.trajs.setMaximum(0.1)
-        self.trajs.setSingleStep(0.001)
-        self.trajs.setDecimals(4)
-        self.trajs.setPrefix("S = ")
-        self.trajs.setSuffix(" m")
-        self.trajs.setToolTip('Integration step size')
 
         self.poldir = QtWidgets.QCheckBox(self.tab)
         self.poldir.setGeometry(QtCore.QRect(420, 84, 15, 15))
@@ -135,17 +114,55 @@ class Ui_MainWindow(object):
                                     'field\nNecessary due to some '
                                     'inconsistencies in efit files formats')
 
+        self.trajs = QtWidgets.QDoubleSpinBox(self.tab)
+        self.trajs.setGeometry(QtCore.QRect(610, 80, 150, 22))
+        self.trajs.setMinimum(0.0001)
+        self.trajs.setMaximum(0.1)
+        self.trajs.setSingleStep(0.001)
+        self.trajs.setDecimals(4)
+        self.trajs.setPrefix("S = ")
+        self.trajs.setSuffix(" m")
+        self.trajs.setToolTip('Integration step size')
+
+
+
+        self.PHD = QtWidgets.QDoubleSpinBox(self.tab)
+        self.PHD.setGeometry(QtCore.QRect(210, 110, 170, 22))
+        self.PHD.setMinimum(-180)
+        self.PHD.setMaximum(180)
+        self.PHD.setSingleStep(1)
+        self.PHD.setPrefix("PHDangle = ")
+        self.PHD.setSuffix(" deg")
+        self.PHD.setToolTip('Toroidal angle of the port')
+
+        self.bfs = QtWidgets.QDoubleSpinBox(self.tab)
+        self.bfs.setGeometry(QtCore.QRect(420, 110, 150, 22))
+        self.bfs.setMinimum(-100)
+        self.bfs.setMaximum(100)
+        self.bfs.setSingleStep(1)
+        self.bfs.setPrefix("bfield_scale = ")
+        self.bfs.setToolTip('Scaling coefficient applied to magnetic field')
+
+        self.trajl = QtWidgets.QDoubleSpinBox(self.tab)
+        self.trajl.setGeometry(QtCore.QRect(610, 110, 150, 22))
+        self.trajl.setMinimum(0.01)
+        self.trajl.setMaximum(10.0)
+        self.trajl.setSingleStep(0.1)
+        self.trajl.setPrefix("SSTP = ")
+        self.trajl.setSuffix(" m")
+        self.trajl.setToolTip('Maximum orbit length in meters')
+
         self.rpLabel = QtWidgets.QLabel(self.tab)
-        self.rpLabel.setGeometry(QtCore.QRect(40, 110, 180, 23))
+        self.rpLabel.setGeometry(QtCore.QRect(40, 140, 250, 23))
         self.rpLabel.setText('Detectors positions and orientations:')
 
         self.runOrbitButton = QtWidgets.QPushButton(self.tab)
-        self.runOrbitButton.setGeometry(QtCore.QRect(530, 500, 100, 23))
+        self.runOrbitButton.setGeometry(QtCore.QRect(530, 520, 100, 23))
         self.runOrbitButton.clicked.connect(self.Execute)
         self.runOrbitButton.setText('Run Orbit')
 
         self.saveOutBut = QtWidgets.QPushButton(self.tab)
-        self.saveOutBut.setGeometry(QtCore.QRect(640, 500, 120, 23))
+        self.saveOutBut.setGeometry(QtCore.QRect(640, 520, 120, 23))
         self.saveOutBut.clicked.connect(self.saveOutput)
         self.saveOutBut.setText('Save output')
         self.saveOutBut.setToolTip('Saves orbit output into selected folder')
@@ -169,7 +186,7 @@ class Ui_MainWindow(object):
         self.posTable = QtWidgets.QTableWidget(self.tab)
         self.posTable.setRowCount(n_prob)
         self.posTable.setColumnCount(9)
-        self.posTable.setGeometry(QtCore.QRect(40, 130, 720, 325))
+        self.posTable.setGeometry(QtCore.QRect(40, 170, 720, 325))
         TableHeader = ['Color','Det_id','Ch','Phi Port Base','Theta Port','Hor. offset', 'Radial offset',
                        'Hight Offset','Type']
         self.posTable.setHorizontalHeaderLabels(TableHeader)
@@ -182,7 +199,7 @@ class Ui_MainWindow(object):
         self.chb = []
         for i in range(n_prob):
             self.chb.append(QtWidgets.QCheckBox(self.tab))
-            self.chb[i].setGeometry(QtCore.QRect(20, 162 + int(29.7*i), 15, 15))
+            self.chb[i].setGeometry(QtCore.QRect(20, 200 + int(29.7*i), 15, 15))
         # declare some attributes
         self.efitFile = ''  # name of efit file without folder and 'g' first letter
         self.dFile = ''  # dynamic file name with full path
@@ -208,11 +225,18 @@ class Ui_MainWindow(object):
             det_use = np.array(dpar.get_value('detector_to_use').split(','),
                           dtype=int)
         except:
-            det_use = np.array(int(dpar.get_value('detector_to_use')))
+            try:
+                det_use = np.array(int(dpar.get_value('detector_to_use')))
+            except:
+                print( 'detector_to_use is not set, using all')
+                det_use = None
 
         # get the assigned channel numbers
         detector_id = B.get_data(dd, 'detector_id')
-        
+        # id det_use is not set use all
+        if det_use is None:
+            det_use = detector_id
+            
         # total number of detectors in dynamic file
         N_det = len(detector_id)
         
@@ -252,8 +276,12 @@ class Ui_MainWindow(object):
         
 
         # open static file to read some data (below is a list of possible static file locations)
-        sfile=['../MACHINE/input/g' + self.efitFile.rsplit('.')[0] + '/static_file.nml', '../MACHINE/input/temp/static_file.nml',
-               os.path.dirname(dfile) + '/static_file.nml', '../MACHINE/input/sample_input_files/static_file.nml']
+        sfile=['../MACHINE/input/g' + self.efitFile.rsplit('.')[0] + '/static_file.nml', 
+               '../MACHINE/input/temp/static_file.nml',
+               os.path.dirname(dfile) + '/static_file.nml', 
+               '../MACHINE/input/sample_input_files/static_file.nml']
+        
+        print('sfiles :', sfile)
         for sfile in sfile:
             try:
                 staticf = open(sfile).readlines()
@@ -309,9 +337,26 @@ class Ui_MainWindow(object):
             if detector_id[i] in det_use:
                 self.chb[i].setChecked(True)
 
-    def selecteFile(self):
+    def selectRoot(self):
+        
         fileDialog = QtWidgets.QFileDialog(self.centralwidget)
-        fileDialog.setDirectory('../MACHINE/efit')
+        fileDialog.setDirectory('../')
+        self.full_root = fileDialog.getExistingDirectory(None, "Open Directory",
+                                       "../",
+                                       QtWidgets.QFileDialog.ShowDirsOnly
+                                       | QtWidgets.QFileDialog.DontResolveSymlinks)
+        fileDialog.destroy()
+        self.root = os.path.relpath(self.full_root, self.curdir)
+        self.rootDisp.setText(self.root)
+    
+
+
+    def selecteFile(self):
+        if self.root == '':
+            self.errormsg('Please select Root first')
+            return        
+        fileDialog = QtWidgets.QFileDialog(self.centralwidget)
+        fileDialog.setDirectory(self.root + '/efit')
         efitFile = fileDialog.getOpenFileName()
         fileDialog.destroy()
         if efitFile[0] != '':
@@ -319,11 +364,11 @@ class Ui_MainWindow(object):
             self.efitFile = efitFile[0].rsplit('g', 1)[-1]
             self.efitDisp.setText(os.path.splitext(self.efitFile)[0])
             # create directories in input and output for future use
-            if not os.path.exists('../MACHINE/input/g' +
+            if not os.path.exists(self.root + '/input/g' +
                                   self.efitFile.rsplit('.')[0]):
-                os.makedirs('../MACHINE/input/g' +
+                os.makedirs(self.root + '/input/g' +
                             self.efitFile.rsplit('.')[0])
-                os.makedirs('../MACHINE/output/g' +
+                os.makedirs(self.root + '/output/g' +
                             self.efitFile.rsplit('.')[0])
 
 
@@ -332,7 +377,7 @@ class Ui_MainWindow(object):
             self.errormsg('Please select efit file first')
             return
         fileDialog = QtWidgets.QFileDialog(self.centralwidget)
-        fileDialog.setDirectory('../MACHINE/input')
+        fileDialog.setDirectory(self.root + '/input')
         self.dFile = fileDialog.getOpenFileName()
         fileDialog.destroy()
         self.dFile = self.dFile[0]
@@ -342,31 +387,31 @@ class Ui_MainWindow(object):
     def saveInput(self):
         self.prepInput()
         fileDialog = QtWidgets.QFileDialog(self.centralwidget)
-        fileDialog.setDirectory('../MACHINE/input/g' +
+        fileDialog.setDirectory(self.root + '/input/g' +
                                 self.efitFile.rsplit('.')[0])
         directory = fileDialog.getExistingDirectory()
         fileDialog.destroy()
         if directory == '':
             return
         # copy files from temp folders to selected folder
-        src_files = os.listdir('../MACHINE/input/temp')
+        src_files = os.listdir(self.root + '/input/temp')
         for file_name in src_files:
-            full_file_name = os.path.join('../MACHINE/input/temp', file_name)
+            full_file_name = os.path.join(self.root + '/input/temp', file_name)
             if (os.path.isfile(full_file_name)) and (file_name != '.gitignore'):
                 shutil.copy(full_file_name, directory)
         print('Input files were copied to ', directory)
 
     def saveOutput(self):
         fileDialog = QtWidgets.QFileDialog(self.centralwidget)
-        fileDialog.setDirectory('../MACHINE/output/g' +
+        fileDialog.setDirectory(self.root + '/output/g' +
                                 self.efitFile.rsplit('.')[0])
         directory = fileDialog.getExistingDirectory()
         fileDialog.destroy()
         if directory == '':
             return
-        src_files = os.listdir('../MACHINE/output/temp')
+        src_files = os.listdir(self.root + '/output/temp')
         for file_name in src_files:
-            full_file_name = os.path.join('../MACHINE/output/temp', file_name)
+            full_file_name = os.path.join(self.root + '/output/temp', file_name)
             if (os.path.isfile(full_file_name)):
                 shutil.copy(full_file_name, directory)
         print(len(src_files), 'orbit output files were coppied to ', directory)
@@ -388,13 +433,13 @@ class Ui_MainWindow(object):
        
 
         # make new control file based sample and GUI inputs
-        cfile_new = ('../MACHINE/input/temp/control_file.data')
-        cfile = ['../MACHINE/input/g' + self.efitFile.rsplit('.')[0] + '/control_file.data', cfile_new, 
-                 os.path.dirname(self.dFile) + '/control_file.data', '../MACHINE/input/sample_input_files/control_file.data']
+        cfile_new = (self.root + '/input/temp/control_file.data')
+        cfile = [self.root + '/input/g' + self.efitFile.rsplit('.')[0] + '/control_file.data', cfile_new, 
+                 os.path.dirname(self.dFile) + '/control_file.data', self.root + '/input/sample_input_files/control_file.data']
         for cfile in cfile:
             try: 
                 controlf = open(cfile).readlines()
-                print('Using %s for new input files preparation' %cfile)
+                print('Using %s for new control files preparation' %cfile)
                 break
             except:
                 print("No control file in %s" %os.path.dirname(cfile))
@@ -433,7 +478,7 @@ class Ui_MainWindow(object):
                 selected.append(int(self.posTable.item(i, 1).text()))
                 
         # write new dynamic file with parameters from GUI inputs
-        dfile_new = ('../MACHINE/input/temp/dynamic_file.data')
+        dfile_new = (self.root + '/input/temp/dynamic_file.data')
         try:
             dynamicf = open(dfile).readlines()
         except:
@@ -472,7 +517,7 @@ class Ui_MainWindow(object):
 
 
         # open static file and save new one with changes
-        sfile_new = ('../MACHINE/input/temp/static_file.nml')
+        sfile_new = (self.root + '/input/temp/static_file.nml')
         try:
             staticf = open(self.static_file).readlines()
         except:
@@ -528,6 +573,7 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+"""
 # scan in R probe and rotation angle
     import matplotlib.pyplot as pl
     rdist = np.linspace(1.6, 1.75, 5)
@@ -555,4 +601,4 @@ if __name__ == "__main__":
 #    ui.Execut()
 #    ui.plotTraj()
 #    ui.populate()
-
+"""
