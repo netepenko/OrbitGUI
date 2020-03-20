@@ -26,7 +26,7 @@ def group3(lst, n, defaultvalue = 0):
         slices_array = [itertools.islice(lst, i, None, n) for i in range(n)]
         # zip the arrays together fill missing elements with fill value
         # *slices_array passes the arrays as an arbitrary number of argument
-        return itertools.izip_longest( *slices_array, fillvalue = defaultvalue)
+        return itertools.zip_longest( *slices_array, fillvalue = defaultvalue)
 
 
 def print_group5(x, out):

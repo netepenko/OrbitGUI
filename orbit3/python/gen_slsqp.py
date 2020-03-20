@@ -98,7 +98,7 @@ class  gen_slsqp:
         self.func = function
         # carry out the fit
         if y is None:
-            print 'No values to fit, use set_yval to set them before fitting !'
+            print('No values to fit, use set_yval to set them before fitting !')
             return
         return self.fit(full_output = full_output, \
                  ftol = ftol, \
@@ -173,15 +173,15 @@ class  gen_slsqp:
             for i,p in enumerate(self.parameters):
                 p.err = sqrt( self.covar[i,i] )
         except:
-            print "gen_fit : problem with fit, parameter errors,  check initial parameters !"
-            print 'covariance matrix : ', self.covar
+            print("gen_fit : problem with fit, parameter errors,  check initial parameters !")
+            print('covariance matrix : ', self.covar)
         if self.print_results:
-            print '----------------------------------------------------------------------'
-            print 'fit results : '
-            print '----------------------------------------------------------------------'
-            print 'chisquare = ',self.chi2
-            print 'red. chisquare = ',self.chi2_red
-            print 'parameters: '
+            print('----------------------------------------------------------------------')
+            print('fit results : ')
+            print('----------------------------------------------------------------------')
+            print('chisquare = ',self.chi2)
+            print('red. chisquare = ',self.chi2_red)
+            print('parameters: ')
             self.show_parameters()
 
     def set_yval(self, y, y_err = None):
@@ -209,7 +209,7 @@ class  gen_slsqp:
 
         """
         for i,p in enumerate(self.parameters):
-            print 'parameter ', i, ' : ', p
+            print('parameter ', i, ' : ', p)
 
 
 

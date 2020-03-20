@@ -91,7 +91,7 @@ for d in orbit_output:
         eq_file = d.split()[-1:][0]
 
 # flux
-print 'reading flux data'
+print('reading flux data')
 fl = gf.flux(orbit_dir + 'flux.data')
 pl.show()
 

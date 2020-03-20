@@ -8,7 +8,7 @@ dest = 'C:/Users/Alex/Desktop/Tracks4Det/'
 try:
     os.makedirs(dest)
 except:
-    print "Directory already exists, will overwrite the files in it"
+    print("Directory already exists, will overwrite the files in it")
 #conv to inches
 conv=1#39.37
 
@@ -23,10 +23,10 @@ pattern  = 'track_?????.data'
 
 files = G.glob(input_dir + pattern)
 nf = len(files)
-print 'found ', nf , ' files' 
+print('found ', nf , ' files') 
 Bf=[]
 for f in files:
-    print 'working on : ', f
+    print('working on : ', f)
     d = B.get_file(f)
 #    Bf.append(Bcheck(d))
     x = B.get_data(d, 'x')

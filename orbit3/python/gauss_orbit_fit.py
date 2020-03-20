@@ -37,9 +37,9 @@ def pol_angle(rx,ry):
 #----------------------------------------------------------------------
 
 def print_init_par(par):
-    print "Initial parameters :"
+    print("Initial parameters :")
     for i,p in enumerate(par):
-        print "parameter : ", i, " = ", p
+        print("parameter : ", i, " = ", p)
 
 
 #----------------------------------------------------------------------
@@ -207,11 +207,11 @@ cc = 0
 while k <= N_fits:
     cc += 1
     if cc > 10000:
-        print 'exhausted 1000 tries !'
+        print('exhausted 1000 tries !')
         break
     # define gaussians
     func = []
-    print 'fit : ', k
+    print('fit : ', k)
     for ng in range( Ngauss):
         # select widths
         sigr = np.random.uniform()*sigr_range + sigr_min
@@ -228,7 +228,7 @@ while k <= N_fits:
                                  yerr = exp_err )
         good_fit = True
     except:
-        print 'problem with fit '
+        print('problem with fit ')
         good_fit = False
     # get the chi-square
     if good_fit and (orbit_fit.chi_red < 500.):

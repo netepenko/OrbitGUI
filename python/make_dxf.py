@@ -15,7 +15,7 @@ pattern  = 'track_?????.data'
 
 files = G.glob(input_dir + pattern)
 nf = len(files)
-print 'found ', nf , ' files' 
+print('found ', nf , ' files') 
 
 idet_open = -1
 drawing = None
@@ -29,7 +29,7 @@ for f in files:
     idet = int(f.split('/')[-1].split('_')[-1].split('.')[0])/10000
     new_detector = (idet != idet_open)    
     if new_detector:
-        print 'new detector : ', idet
+        print('new detector : ', idet)
         idet_open = idet
         if not first:
             groups.append(names)

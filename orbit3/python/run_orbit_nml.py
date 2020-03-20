@@ -10,7 +10,7 @@ import sys
 
 if os.path.exists('orb') == True:
 	os.remove('orb')
-	print "./orb directory has been removed."
+	print("./orb directory has been removed.")
 
 #machine = 'NSTX'
 machine = 'MAST'
@@ -61,9 +61,9 @@ try:
 except:
     msg = sys.exc_info()[1]
     if msg.errno == 17 :
-        print output_dir, " exists, will use it "
+        print(output_dir, " exists, will use it ")
     else:
-        print "there is a problem : ", msg
+        print("there is a problem : ", msg)
         sys.exit()
 # done
 
@@ -73,7 +73,7 @@ try:
     os.symlink(output_dir, "./orb")
 except:
     msg = sys.exc_info()[1]
-    print "problem with link : ", msg
+    print("problem with link : ", msg)
     sys.exit()
 
 #write the command file
@@ -101,7 +101,7 @@ os.remove('./orbit_error')
 #os.remove('./collimator.data')
 os.remove('./orb')
 
-print output_dir+'/flux.data'
+print(output_dir+'/flux.data')
 SU.copy('flux.data', output_dir + '/flux.data')
 SU.copy('flux_limit.data', output_dir + '/flux_limit.data')
 SU.copy('limiter_drawing.data', output_dir + '/limiter_drawing.data')

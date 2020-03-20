@@ -216,7 +216,7 @@ if model == 'pow':
     alpha = B.Parameter(1., 'alpha')
     Em_func = Em_pow
     Em_func_der = Em_pow_der
-    print 'initial parameters :', alpha,'\n', lam,'\n'
+    print('initial parameters :', alpha,'\n', lam,'\n')
     current_fit_par = [alpha, lam]
 elif model == 'pol':
     # polynomial
@@ -232,7 +232,7 @@ elif model == 'pol':
     Em_func_der = Em_pol_sq_der
 #    print 'initial parameters :', p0(), p1(), p2(), p3(), p4(), p5()
 #    current_fit_par = [p0, p1, p2, p3, p4, p5]
-    print 'initial parameters :', p0(), p1(), p2(), p3()
+    print('initial parameters :', p0(), p1(), p2(), p3())
     current_fit_par = [p0, p1, p2, p3]
 elif model == 'zer':
     # polynomial
@@ -244,7 +244,7 @@ elif model == 'zer':
     p5 = B.Parameter(0.)
     Em_func = Em_zern
     Em_func_der = Em_zern_der
-    print 'initial parameters :', p0(), p1(), p2(), p3(), p4(), p5()
+    print('initial parameters :', p0(), p1(), p2(), p3(), p4(), p5())
     current_fit_par = [p0, p1, p2, p3, p4, p5]
 elif model == 'cheb':
     # polynomial
@@ -256,7 +256,7 @@ elif model == 'cheb':
 #    p5 = B.Parameter(0.)
     Em_func = Em_cheb
     Em_func_der = Em_cheb_der
-    print 'initial parameters :', p0(), p1(), p2(), p3(), p4()# , p4(), p5()
+    print('initial parameters :', p0(), p1(), p2(), p3(), p4())# , p4(), p5()
     current_fit_par = [p0, p1, p2, p3, p4]
 elif model == 'pow_mod':
     # modulated power law
@@ -270,7 +270,7 @@ elif model == 'pow_mod':
     use_all_variables = True
     Em_func = Em_pow_mod
     Em_func_der = Em_pow_mod_der
-    print 'initial parameters :', alpha(), lam(), A1(), B1(), A2(), B2()
+    print('initial parameters :', alpha(), lam(), A1(), B1(), A2(), B2())
     current_fit_par = [alpha, lam, A1, B1]
 elif model == 'two_gauss':
     # modulated power law
@@ -282,10 +282,10 @@ elif model == 'two_gauss':
     use_all_variables = True
     Em_func = Em_2g
     Em_func_der = Em_2g_der
-    print 'initial parameters :', A,'\n', posr,'\n', sigr,'\n', posz,'\n', sigz, '\n'
+    print('initial parameters :', A,'\n', posr,'\n', sigr,'\n', posz,'\n', sigz, '\n')
     current_fit_par = [A, posr, sigr, posz, sigz]
 else:
-    print"unknown model", model
+    print("unknown model", model)
     sys.exit()
 
 # define the emissivity model
@@ -398,11 +398,11 @@ stat = orbit_fit.stat
 fit_eff = stat['fitted values']
 # get covariance matrix
 if orbit_fit.covar == None:
-    print "fit did not converge !' "
-    for k in stat.keys():
-        print '------------------------------------------------------'
-        print k, ' = ', stat[k]
-    print '------------------------------------------------------'
+    print("fit did not converge !' ")
+    for k in list(stat.keys()):
+        print('------------------------------------------------------')
+        print(k, ' = ', stat[k])
+    print('------------------------------------------------------')
     sys.exit()
 #
 # take chi square into account for error estimate
@@ -472,8 +472,8 @@ if ymax > 1.2:
 
 pl.subplots_adjust(left=0.15, bottom = 0.15)
 
-print 'reduced chi square: ', orbit_fit.chi2_red
-print 'Model used : ', model
+print('reduced chi square: ', orbit_fit.chi2_red)
+print('Model used : ', model)
 for i,p_val in enumerate(current_fit_par):
-    print 'final parameter : ',i, ' = ', p_val
+    print('final parameter : ',i, ' = ', p_val)
 # that's it

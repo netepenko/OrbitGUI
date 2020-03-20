@@ -472,7 +472,7 @@ c                 1000*i + 100*j + 10*id + jd
      >                TRIM(orbit_head)//
      >                TRIM(ADJUSTL(orbit_id))//
      >                TRIM(orbit_tail)
-                 print *, 'writing to ', orbit_fname
+                 print *, 'writing to: ', orbit_fname
                  call write_orbit(effic, accept_tot, sdel, sdv , n, jdet)
     
                  IF(EFFIC .LT. EFFLIM) then

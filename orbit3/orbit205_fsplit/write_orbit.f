@@ -26,7 +26,6 @@ c cumulatice sum of sdl, used for checks
       common /sdl_data/sdl_cs(mxorpt+1)
 
 c open filename
-
       open(iorbit, file = orbit_fname, err = 999)
       
 c write header information

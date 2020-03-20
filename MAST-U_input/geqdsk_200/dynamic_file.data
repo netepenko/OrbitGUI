@@ -1,0 +1,49 @@
+#------------------------------------------------------------------------------
+# This data file contains any physical changes or parameters to be 
+# added to the static portion of the MAST input file.
+#------------------------------------------------------------------------------
+
+
+#------------------------------------------------------------------------------
+# Parameters
+#------------------------------------------------------------------------------
+# detectors to be used for orbit calculations
+# allows to skip some detectors which some obstructions or for any other reason
+# detector_use - id numbers of detectors to be used for calculations
+#------------------------------------------------------------------------------
+
+#\ detector_to_use = 1, 2, 3, 4
+
+
+
+#------------------------------------------------------------------------------
+# reciprocating probe positon parameters
+# angles are entered in degrees, distance parameters entered in meters
+#------------------------------------------------------------------------------
+# RDist - radial position of the RP probe face closest to the tokamak center
+# RDist_offset - distance between above mentioned face and nearest detector 
+# ZDist - hight of RP in tokamak above midplane
+# PHDangle - RP position toroidal angle 
+# RP_rotation - rotation angle of RP around its own axis
+#------------------------------------------------------------------------------
+
+#\ RDist = 1.658
+#\ RDist_offset = 0.01156
+#\ ZDist = 0.0
+#\ PHDangle = 79.3
+#\ RP_rotation = 0.0
+
+
+
+#------------------------------------------------------------------------------
+# detectors positions and orientations in the probe coordinate system for Probe
+# detectors or in tokamak coordinate system for Fixed detectors
+# for Fixed detectors offsets are actual positions, where horisontal represents
+# its position toroidal angle. Angles entered in degrees, offsets in mm
+#------------------------------------------------------------------------------
+
+#! detector_id[i,0]/ ch[i,1]/ phi_port_base[f,2]/ theta_port_base[f,3]/ detector_horizontal_offset[f,4]/ detector_radial_axis_offset[f,5]/ detector_height_offest[f,6]/  det_type[s,7]/
+1      1      30.0   40.0   -33.12 28.32  30.014 Probe  
+2      2      35.0   40.0   -16.11 21.36  38.311 Probe  
+3      3      40.0   40.0   -42.97 8.75   13.981 Probe  
+4      0      45.0   40.0   -28.11 0.0    24.414 Probe  

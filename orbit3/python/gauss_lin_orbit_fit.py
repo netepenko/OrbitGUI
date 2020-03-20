@@ -39,9 +39,9 @@ def pol_angle(rx,ry):
 #----------------------------------------------------------------------
 
 def print_init_par(par):
-    print "Initial parameters :"
+    print("Initial parameters :")
     for i,p in enumerate(par):
-        print "parameter : ", i, " = ", p
+        print("parameter : ", i, " = ", p)
 
 
 #----------------------------------------------------------------------
@@ -235,9 +235,9 @@ cc = 0
 while k <= N_fits:
     cc += 1
     if cc%100 == 0:
-        print "Trial : ", cc
+        print("Trial : ", cc)
     if cc > N_max_trials:
-        print 'exhausted ',N_max_trials,' tries !'
+        print('exhausted ',N_max_trials,' tries !')
         break
     # define gaussians
     func = []
@@ -258,13 +258,13 @@ while k <= N_fits:
                                  quiet = True)
         good_fit = True
     except:
-        print 'problem with fit '
+        print('problem with fit ')
         good_fit = False
     # get the chi-square
     # pos_fit = (orbit_fit.par>0.).min()
     if good_fit and (orbit_fit.chi_red < 50.):
         k += 1
-        print 'success  number : ', k
+        print('success  number : ', k)
         fit_results.append([orbit_fit.chi_red, orbit_fit.par, func])
 # finished with all possible fits
 fit_results = np.array(fit_results)

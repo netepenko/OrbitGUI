@@ -15,7 +15,7 @@ class orbit:
         counter = 0
         if fast :
             for l in self.data:
-                f = map(float, l.split())
+                f = list(map(float, l.split()))
                 x = f[1]*np.cos( f[2] )
                 y = f[1]*np.sin( f[2] )
                 # this creates an x, y, z, r, phi, z, ... array
@@ -24,7 +24,7 @@ class orbit:
                 data = np.array(r)
                 if f[0] == 1:
                     counter += 1
-                    print "add orbit ", counter
+                    print("add orbit ", counter)
                     if new_orbit != []:
                         self.orbits.append(np.vstack(new_orbit))
                         new_orbit = []
@@ -43,18 +43,18 @@ class orbit:
                 data = np.array(r + dt)
                 if l['step'] == 1:
                     counter += 1
-                    print "add orbit ", counter
+                    print("add orbit ", counter)
                     if new_orbit != []:
                         self.orbits.append(np.vstack(new_orbit))
                         new_orbit = []
                 new_orbit.append(data)
         # add the last orbit
         counter += 1
-        print "add last orbit "
+        print("add last orbit ")
         self.orbits.append(np.vstack(new_orbit))
         # all data have been read
         self.counter = counter-1
-        print "total of : ", self.counter, " orbits loaded !"
+        print("total of : ", self.counter, " orbits loaded !")
     
     def draw(self, ix = 0, iy = 2, *args, **kwargs):
         # draw the orbits 
@@ -64,10 +64,10 @@ class orbit:
     def is_ok(self, i):
         # check the orbit index
         if i < 0:
-            print 'invalid orbit index : ', i
+            print('invalid orbit index : ', i)
             return False
         if i > (len(self.orbits)-1):
-            print 'orbit index too large :',i,  ' max = ', len(self.orbits)-1
+            print('orbit index too large :',i,  ' max = ', len(self.orbits)-1)
             return False
         return True
 

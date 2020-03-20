@@ -31,7 +31,7 @@ def group3(lst, n, defaultvalue = 0):
 	if defaultvalue == None:
 		return group0(lst, n)
 	else:
-		return itertools.izip_longest( *slices_array, fillvalue = defaultvalue)
+		return itertools.zip_longest( *slices_array, fillvalue = defaultvalue)
 
 
 def print_group5(x, out):

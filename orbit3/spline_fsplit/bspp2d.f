@@ -58,7 +58,7 @@ c
       break(1) = t(k)
       do 50 left=k,n
 c        find the next nontrivial knot interval.
-         if (t(left+1) .eq. t(left))    go to 50
+         if (abs(t(left+1) - t(left)) .le. epsilon(t(left)))    go to 50
          l = l + 1
          break(l+1) = t(left+1)
          if (k .gt. 1)                  go to 9

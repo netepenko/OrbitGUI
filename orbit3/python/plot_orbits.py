@@ -32,13 +32,13 @@ orbit_dir = './orb_pro_52/'
 #orbit_dir = './orb_ppro_5/'
 
 # flux
-print 'reading flux data'
+print('reading flux data')
 fl = gf.flux('flux.data')
 # limiter
-print 'reading limiter data'
+print('reading limiter data')
 li = gl.limiter('limiter_drawing.data')
 #orbits
-print 'reading orbits data'
+print('reading orbits data')
 o = go.orbit(orbit_dir+'orbits.data', fast = True)
 
 # draw side view

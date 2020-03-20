@@ -138,4 +138,4 @@ for i,ph in enumerate(phi):
         zv = zl[i][j]
         o_l.write( '{} {} \n'.format(rv, zv))
     o_l.close()
-print 'all_done'
+print('all_done')

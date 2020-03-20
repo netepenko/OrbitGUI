@@ -175,7 +175,7 @@ class limiter:
 
     def draw_side_all(self):
         # draw both views
-        self.ax1 = pl.subplot(1,1,1)
+        self.ax1 = pl.gca()#subplot(1,1,1)
         #for i in range(self.nregs):
         self.draw_side(ireg = 1, adjust_aspect = False)
         #self.draw_side(ireg = 3, adjust_aspect = False, ls = '--')

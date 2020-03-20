@@ -103,13 +103,13 @@ for d in orbit_output:
         eq_file = d.split()[-1:][0]
 
 # flux
-print 'reading flux data'
+print('reading flux data')
 fl = gf.flux(orbit_dir + 'flux.data')
 # limiter
-print 'reading limiter data'
+print('reading limiter data')
 li = gl.limiter(orbit_dir + 'limiter_drawing.data')
 #orbits
-print 'reading orbits data'
+print('reading orbits data')
 o = go.orbit(orbit_dir+'orbits.data', fast = True)
 
 # draw side view

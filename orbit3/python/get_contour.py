@@ -5,7 +5,7 @@ def get_contour_data(cont_obj, i):
     try:
         p = coll.get_paths()[0]
     except:
-        print 'no path found !'
+        print('no path found !')
         return [],[]
     v = p.vertices
     x = v[:,0]

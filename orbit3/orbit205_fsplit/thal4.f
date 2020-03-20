@@ -83,7 +83,7 @@ c  DENER	     fractional change in energy of particle over orbit (ideally 0)
 c  MUI, MUF  	 initial and final magnetic moments of particle
 c  DMU		     fractional change in magnetic moment over orbit
 
-      DIMENSION RV(6),C(24),W(6,9)
+      DIMENSION RV(6), RVN(6), C(24),W(6,9)
       EXTERNAL FCN1
       logical hitlim  
 
@@ -99,6 +99,7 @@ C   COMPUTE OMEGA ONCE, SINCE IT IS CONSTANT
       mv0 = pm * adet * sqrt(2.0d6 * echrg * ener / (adet * pm)) 
       hm = ener * echrg * 1.0d6
       zre = zdet * echrg 
+      print *, 'cheza mv0, hm, zre', mv0, hm, zre
       pphisgn = -1.0d0
       if (ifor .ge. 1) pphisgn = 1.0d0
 		
@@ -132,7 +133,29 @@ c        outside the boundary set flux to a huge number
       call magfld
 
 
-        
+
+c     correction for the initial velocity direction due to the bending on detector - collimator distance
+          
+       
+      vxd=zre*D/2/mv0*(v(2)*b(3) - v(3)*b(2))
+      vyd=zre*D/2/mv0*(v(3)*b(1) - v(1)*b(3))
+      vzd=zre*D/2/mv0*(v(1)*b(2) - v(2)*b(1))
+      
+      rvn(4)= rv(4) + vxd
+      rvn(5)= rv(5) + vyd
+      rvn(6)= rv(6) + vzd
+      
+      vdd=sqrt(rvn(4)**2 + rvn(5)**2 + rvn(6)**2)
+      rvn(4)= rvn(4)/vdd
+      rvn(5)= rvn(5)/vdd
+      rvn(6)= rvn(6)/vdd
+      rangle = 1.80d2/pi*acos(rvn(4)*rv(4) + rvn(5)*rv(5) + rvn(6)*rv(6))
+      rv(4)= rvn(4)
+      rv(5)= rvn(5)
+      rv(6)= rvn(6)
+      
+
+      print *, 'deflection on det/col (deg): ', rangle
 c     compute the real initial pitch angle wrt B-field at starting point.
 c     That  angle is the arccos of v dot B /|v||B|.
 

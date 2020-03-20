@@ -21,11 +21,11 @@ dynamic_data = B.get_file('../'+ input_file + '/dynamic_input.data')
 
 dynamic_parameters = dynamic_data.par.get_all_data()
 
-for k in dynamic_parameters.keys():
+for k in list(dynamic_parameters.keys()):
     try:
         dynamic_parameters[k]=float(dynamic_parameters[k])
     except:
-        print "\n Cannot make a float  out of this : ", dynamic_parameters[k], k,'\n'
+        print("\n Cannot make a float  out of this : ", dynamic_parameters[k], k,'\n')
         
 detectors = 4 # Total number of detectors in the system
 
@@ -93,7 +93,7 @@ else:
         # New Phi port Calculation
                
         phi_port.append(np.degrees(np.arcsin(np.sin(phi)*np.cos(alpha)-np.cos(phi)*np.cos(theta)*np.sin(alpha))))
-        print 'Phi_port was ',np.degrees(phi),' degrees. After a rotation of ', np.degrees(alpha),', it is now ',phi_port[i]
+        print('Phi_port was ',np.degrees(phi),' degrees. After a rotation of ', np.degrees(alpha),', it is now ',phi_port[i])
         
         # New Theta port Calculation
         
@@ -101,7 +101,7 @@ else:
         z_prime = np.sin(phi)*np.sin(alpha)+np.cos(phi)*np.cos(theta)*np.cos(alpha)
         theta_port.append(np.degrees(np.arccos(z_prime/(np.sqrt(x_prime**2 + z_prime**2)))))
     
-        print 'Theta was ', np.degrees(theta),'degrees. After a rotation of ',np.degrees(alpha),' degrees, it is now ', theta_port[i]
+        print('Theta was ', np.degrees(theta),'degrees. After a rotation of ',np.degrees(alpha),' degrees, it is now ', theta_port[i])
     
     phi_port = np.array(phi_port)
     dynamic_parameters['theta_port'] = np.array(theta_port)
@@ -120,7 +120,7 @@ bothf = open('MAST_p6.nml','w+')             #creates MAST_p6.nml writable file 
 
 bothf.writelines(staticf[:staticf.index(' &orbit_par\n')+2])     #writes the static file into the new nml file     
 
-orbit_par = [dynamic_parameters.keys()[i] for i in [dynamic_parameters.keys().index('detectors'),dynamic_parameters.keys().index('detector_number'),dynamic_parameters.keys().index('theta_port')]];orbit_par.append('phi_port')
+orbit_par = [list(dynamic_parameters.keys())[i] for i in [list(dynamic_parameters.keys()).index('detectors'),list(dynamic_parameters.keys()).index('detector_number'),list(dynamic_parameters.keys()).index('theta_port')]];orbit_par.append('phi_port')
 
 # print orbit_par
 
@@ -130,7 +130,7 @@ for i in orbit_par:
     if i == 'phi_port':
         orbit_par.remove(i)
         for k in range(detectors):
-            if k == len(range(detectors))-1:
+            if k == len(list(range(detectors)))-1:
                 bothf.write('  ' + i + '({0:1})'.format(k+1) + '= {0:1}\n\n'.format(phi_port[dn[k]-1])) 
             else:  
                 bothf.write('  ' + i + '({0:1})'.format(k+1) + '= {0:1}\n'.format(phi_port[dn[k]-1]))     
@@ -142,29 +142,29 @@ for i in orbit_par:
     else:
         for k in range(detectors):
                 if i == 'detector_number':
-                    if k == len(range(detectors))-1:
+                    if k == len(list(range(detectors)))-1:
                         bothf.write('  ' + i +'({0:1})'.format(k+1) + '= {0:1}\n\n'.format(dynamic_parameters[i][k]))
                     else:
                         bothf.write('  ' + i + '({0:1})'.format(k+1) + '= {0:1}\n'.format(dynamic_parameters[i][k]))        
-                elif k == len(range(detectors))-1:
+                elif k == len(list(range(detectors)))-1:
                 	   bothf.write('  ' + i +'({0:1})'.format(k+1) + '= {0:1}\n\n'.format(dynamic_parameters[i][dn[k]-1]))
             	else:
                    bothf.write('  ' + i + '({0:1})'.format(k+1) + '= {0:1}\n'.format(dynamic_parameters[i][dn[k]-1]))        
                     
 bothf.writelines(staticf[staticf.index(' &orbit_par\n')+1:staticf.index(' &detection\n')+2])               
 
-detection = dynamic_parameters.keys(); detection.remove('RP_rotation')
+detection = list(dynamic_parameters.keys()); detection.remove('RP_rotation')
 for i in orbit_par:
     try:
         detection.remove(i)
     except:
-        print i,'could not be removed.'    
+        print(i,'could not be removed.')    
 
 # print detection
 
 for i in detection:
         for k in range(detectors):
-            if k == len(range(detectors))-1:
+            if k == len(list(range(detectors)))-1:
                 bothf.write('  ' + i +'({0:1})'.format(k+1) + '= {0:1}\n\n'.format(dynamic_parameters[i][dn[k]-1]))
             else:
                 bothf.write('  ' + i + '({0:1})'.format(k+1) + '= {0:1}\n'.format(dynamic_parameters[i][dn[k]-1]))
@@ -180,7 +180,7 @@ answer = False
 
 while answer == False:
 
-	a  = raw_input('Do you want to view the plots? (yes/no)')
+	a  = input('Do you want to view the plots? (yes/no)')
 
 	if a == 'yes':
 
@@ -189,12 +189,12 @@ while answer == False:
 
 	elif a == 'no':
 
-		print '\n Please continue reading below. \n'
+		print('\n Please continue reading below. \n')
 		answer = True
 
 	else: 
 
-		print 'Please enter yes or no.'
+		print('Please enter yes or no.')
 
 # Determing what to enter in the RP Remote Control
 
@@ -206,13 +206,13 @@ PD_offset = (detector_radial_axis_offset.max() + 42)*1.e-3 - .165
 
 RP_min = dynamic_parameters['RDist'].min()
 
-print '\nWhen the collimator entrance closest to the center of the MAST Tokamak is at', RP_min,' meters:\n'
-print '\n- The outer edge of the shell is ',RP_min- 11.e-3,' meters from the center of the plasma.\n'
-print '- The value that must be inputted into the remote RP controller can be one of the following two:\n'
-print '-- If the gas is on, input ',SpGOn(RP_min,PD_offset),'\n'
-print '-- If the gas is off, input ',SpGOff(RP_min,PD_offset),'\n'
-print 'Please remember to stay between 248 and 500!\n'
-print 'Never input a value above 500!'
+print('\nWhen the collimator entrance closest to the center of the MAST Tokamak is at', RP_min,' meters:\n')
+print('\n- The outer edge of the shell is ',RP_min- 11.e-3,' meters from the center of the plasma.\n')
+print('- The value that must be inputted into the remote RP controller can be one of the following two:\n')
+print('-- If the gas is on, input ',SpGOn(RP_min,PD_offset),'\n')
+print('-- If the gas is off, input ',SpGOff(RP_min,PD_offset),'\n')
+print('Please remember to stay between 248 and 500!\n')
+print('Never input a value above 500!')
 
 #if SpGOn(RP_min,PD_offset) >= 500. or SpGOff(RP_min,PD_offset) >=500.:
 #	if SpGOn(RP_min,PD_offset) >= 500.:
@@ -220,7 +220,7 @@ print 'Never input a value above 500!'
 #	elif SpGOff(RP_min,PD_offset) >= 500.:
 #		print '\nWARNING THE SET POINT WITH THE GAS OFF IS AT OR ABOVE 500!'
 
-print '\nHave a nice day.'
+print('\nHave a nice day.')
 
 
 

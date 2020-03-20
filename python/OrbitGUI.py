@@ -4,7 +4,7 @@
 
 
 from PyQt5 import QtCore, QtWidgets, QtGui  # Python GUI module
-import run_all_par as rap
+import run_all_par
 import plot_orbits_combined_par as pocp
 import os
 import LT.box as B
@@ -109,7 +109,7 @@ class Ui_MainWindow(object):
         self.trajl = QtWidgets.QDoubleSpinBox(self.tab)
         self.trajl.setGeometry(QtCore.QRect(610, 50, 150, 22))
         self.trajl.setMinimum(0.01)
-        self.trajl.setMaximum(10.0)
+        self.trajl.setMaximum(500.0)
         self.trajl.setSingleStep(0.1)
         self.trajl.setPrefix("SSTP = ")
         self.trajl.setSuffix(" m")
@@ -173,8 +173,7 @@ class Ui_MainWindow(object):
         TableHeader = ['Color','Det_id','Ch','Phi Port Base','Theta Port','Hor. offset', 'Radial offset',
                        'Hight Offset','Type']
         self.posTable.setHorizontalHeaderLabels(TableHeader)
-        self.posTable.horizontalHeader().setSectionResizeMode(
-                QtWidgets.QHeaderView.Stretch)
+        self.posTable.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.posTable.verticalHeader().setVisible(False)
 
 
@@ -199,7 +198,7 @@ class Ui_MainWindow(object):
         try:
             dd = B.get_file(dfile)
         except:
-            print "Couldn't open dynamic file to load parameters inputs"
+            print("Couldn't open dynamic file to load parameters inputs")
             return
         dpar = dd.par
 
@@ -252,16 +251,18 @@ class Ui_MainWindow(object):
         
 
         # open static file to read some data (below is a list of possible static file locations)
-        sfile=['../MAST-U_input/g' + self.efitFile.rsplit('.')[0] + '/static_file.nml', '../MAST-U_input/temp/static_file.nml',
-               os.path.dirname(dfile) + '/static_file.nml', '../MAST-U_input/sample_input_files/static_file.nml']
+        sfile=[os.path.dirname(dfile) + '/static_file.nml',
+               '../MAST-U_input/g' + self.efitFile.rsplit('.')[0] + '/static_file.nml',
+               '../MAST-U_input/temp/static_file.nml',
+               '../MAST-U_input/sample_input_files/static_file.nml']
         for sfile in sfile:
             try:
                 staticf = open(sfile).readlines()
                 self.static_file = sfile
-                print 'Using %s for new input files preparation' %sfile
+                print('Using %s for new input files preparation' %sfile)
                 break
             except:
-                print "No static file in %s" %os.path.dirname(sfile)
+                print("No static file in %s" %os.path.dirname(sfile))
         
         for line in staticf:
             if 'bfield_scale' in line:
@@ -354,7 +355,7 @@ class Ui_MainWindow(object):
             full_file_name = os.path.join('../MAST-U_input/temp', file_name)
             if (os.path.isfile(full_file_name)) and (file_name != '.gitignore'):
                 shutil.copy(full_file_name, directory)
-        print 'Input files were copied to ', directory
+        print('Input files were copied to ', directory)
 
     def saveOutput(self):
         fileDialog = QtWidgets.QFileDialog(self.centralwidget)
@@ -369,7 +370,7 @@ class Ui_MainWindow(object):
             full_file_name = os.path.join('../MAST-U_output/temp', file_name)
             if (os.path.isfile(full_file_name)):
                 shutil.copy(full_file_name, directory)
-        print len(src_files), 'orbit output files were coppied to ', directory
+        print(len(src_files), 'orbit output files were coppied to ', directory)
 
 
     def errormsg(self, text):
@@ -394,10 +395,10 @@ class Ui_MainWindow(object):
         for cfile in cfile:
             try: 
                 controlf = open(cfile).readlines()
-                print 'Using %s for new input files preparation' %cfile
+                print('Using %s for new input files preparation' %cfile)
                 break
             except:
-                print "No control file in %s" %os.path.dirname(cfile)
+                print("No control file in %s" %os.path.dirname(cfile))
 
         ncontrol = open(cfile_new, 'w+')
         
@@ -410,7 +411,7 @@ class Ui_MainWindow(object):
     #                continue
                 ncontrol.write(line)
         except:
-            print "Couldn't prepare control file"
+            print("Couldn't prepare control file")
             return
         ncontrol.close()
 
@@ -476,7 +477,7 @@ class Ui_MainWindow(object):
         try:
             staticf = open(self.static_file).readlines()
         except:
-            print 'Something went wrong with static file'
+            print('Something went wrong with static file')
             
         nstatic = open(sfile_new, 'w+')
         for line in staticf:
@@ -509,7 +510,7 @@ class Ui_MainWindow(object):
         except:
             self.errormsg('Input file preparation faild.')
         try:
-            rap.main(self.cfile)
+            run_all_par.main(self.cfile)
         except:
             self.errormsg('Orbit execution faild.')
         try:
@@ -530,12 +531,13 @@ if __name__ == "__main__":
     sys.exit(app.exec_())
 # scan in R probe and rotation angle
     import matplotlib.pyplot as pl
-    rdist = np.linspace(1.6, 1.75, 5)
-    rp_rot = np.linspace(-10, 30, 5)
+    rdist = np.linspace(1.64, 1.75, 7)
+    rp_rot = np.linspace(-30, 30, 7)
+    dire='gFIESTA_A1_new2'#'g29904_new'#'g99999K26'
     for r in rdist:
         for alph in rp_rot:
             try:
-                directory='../MAST-U_output/g29904_new/R_dist_%f_Rot_%f'%(r,alph)
+                directory='../MAST-U_output/%s/R_dist_%f_Rot_%f'%(dire,r,alph)
                 os.makedirs(directory)
                 ui.Rdist.setValue(r)
                 ui.RProt.setValue(alph)
@@ -548,9 +550,14 @@ if __name__ == "__main__":
                     full_file_name = os.path.join('../MAST-U_output/temp', file_name)
                     if (os.path.isfile(full_file_name)):
                         shutil.copy(full_file_name, directory)
-                print len(src_files), 'orbit output files were coppied to ', directory
+                print(len(src_files), 'orbit output files were coppied to ', directory)
             except:
-                print 'Something went wrong', r, alph
+                print('Something went wrong', r, alph)
+    for f in os.listdir('../MAST-U_output/%s/'%dire):
+        try:
+            shutil.copy('../MAST-U_output/%s/'%dire + f +'/Figure.png', '../MAST-U_output/%s/%s.png'%(dire,f))
+        except:
+            pass
 #    ui.selectFile()
 #    ui.Execut()
 #    ui.plotTraj()

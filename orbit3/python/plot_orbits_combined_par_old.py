@@ -97,14 +97,14 @@ try:
     flux_data_file = pf.get_value('flux_data_file')
 except:
     flux_data_file = 'flux.data'
-print 'using : ', flux_data_file, ' for flux and Em data' 
+print('using : ', flux_data_file, ' for flux and Em data') 
 
 # flux limiter
 try:
     flux_limiter_file = pf.get_value('flux_limiter_file')
 except:
     flux_limiter_file = 'flux_limit.data'
-print 'using : ', flux_limiter_file, ' for flux limit data' 
+print('using : ', flux_limiter_file, ' for flux limit data') 
 
 
 # plot n-flux at mid-plane
@@ -126,19 +126,19 @@ for d in orbit_output:
         eq_file = d.split()[-1:][0]
 
 # flux
-print 'reading flux data'
+print('reading flux data')
 fl = gf.flux(orbit_dir + '/'+flux_data_file)
 
-print 'reading flux limit data'
+print('reading flux limit data')
 fll_d = DF.dfile(orbit_dir + '/'+flux_limiter_file)
 r_fll = np.array(fll_d.get_data('xlim'))
 z_fll = np.array(fll_d.get_data('ylim'))
 
 # limiter
-print 'reading limiter data'
+print('reading limiter data')
 li = gl.limiter(orbit_dir + '/limiter_drawing.data')
 #orbits
-print 'reading orbits data'
+print('reading orbits data')
 o = go.orbit(orbit_dir+'/orbits.data', fast = True)
 
 # draw side view

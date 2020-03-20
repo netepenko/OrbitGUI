@@ -84,7 +84,7 @@ if model == 'pow':
     lam = gf.Parameter(10)
     alpha = gf.Parameter(1.)
     Em_func = Em_pow
-    print 'initial parameters :', lam(), alpha()
+    print('initial parameters :', lam(), alpha())
     pars = [alpha, lam]
 elif model == 'pol':
     # polynomial
@@ -95,7 +95,7 @@ elif model == 'pol':
     p4 = gf.Parameter(0.)
     p5 = gf.Parameter(1.e-12)
     Em_func = Em_pol
-    print 'initial parameters :', p0(), p1(), p2(), p3(), p4(), p5()
+    print('initial parameters :', p0(), p1(), p2(), p3(), p4(), p5())
     pars = [p0, p1, p2, p3, p4, p5]
 elif model == 'zer':
     # polynomial
@@ -106,10 +106,10 @@ elif model == 'zer':
     p4 = gf.Parameter(0.)
     p5 = gf.Parameter(0.)
     Em_func = Em_zern
-    print 'initial parameters :', p0(), p1(), p2(), p3(), p4(), p5()
+    print('initial parameters :', p0(), p1(), p2(), p3(), p4(), p5())
     pars = [p0, p1, p2, p3, p4, p5]
 else:
-    print"unknown model", model
+    print("unknown model", model)
     sys.exit()
 
 # define the emissivity model
@@ -227,7 +227,7 @@ for v in views:
     pl.plot(v.pos_psirel, Em_mod(v.pos_psirel, em_par), 'rD') 
 pl.show()
 
-print 'Model used : ', model
+print('Model used : ', model)
 for i,p_val in enumerate(pars):
-    print 'final parameter : ',i, ' = ', p_val()
+    print('final parameter : ',i, ' = ', p_val())
 # that's it

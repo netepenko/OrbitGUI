@@ -126,13 +126,13 @@ stat_file = cd.get_value('static_file')
 try:
     reverse = cd.get_value('reverse_direction', var_type = cd.Bool)
 except:
-    print 'no reverse_direction found use default value : False'
+    print('no reverse_direction found use default value : False')
     reverse = False
 
 if reverse:
-    print 'Changed particle direction, IFOR  in the static file need to be set to 1!'
+    print('Changed particle direction, IFOR  in the static file need to be set to 1!')
 else:
-    print 'Normal particle direction, IFOR  in the static file need to be set to 0!'
+    print('Normal particle direction, IFOR  in the static file need to be set to 0!')
     
 # Total number of detectors in the system
 
@@ -245,8 +245,8 @@ else:
 #    theta_port = theta_change(ppb,tpb,alpha)
 
 for i in range(det):
-    print 'Phi_port was ',ppb[i]/dtr,' degrees. After a rotation of ', alpha/dtr,'degrees, it is now ',phi_port[i]
-    print 'Theta was ', tpb[i]/dtr,'degrees. After a rotation of ',alpha/dtr,' degrees, it is now ', theta_port[i]
+    print('Phi_port was ',ppb[i]/dtr,' degrees. After a rotation of ', alpha/dtr,'degrees, it is now ',phi_port[i])
+    print('Theta was ', tpb[i]/dtr,'degrees. After a rotation of ',alpha/dtr,' degrees, it is now ', theta_port[i])
 
 ######################Creating New Dictionary########################
 
@@ -264,7 +264,7 @@ PA = {\
 'detectors':detectors\
 }
     
-PAK = PA.keys()
+PAK = list(PA.keys())
 PAG = PA.get
 
 ######################Make a new NML file#########################
@@ -325,7 +325,7 @@ answer = False
 
 while answer == False:
 
-	a  = raw_input('Do you want to view the plots? (yes/no)')
+	a  = input('Do you want to view the plots? (yes/no)')
 
 	if a == 'yes':
 
@@ -334,12 +334,12 @@ while answer == False:
 
 	elif a == 'no':
 
-		print '\n Please continue reading below. \n'
+		print('\n Please continue reading below. \n')
 		answer = True
 
 	else: 
 
-		print 'Please enter yes or no.'
+		print('Please enter yes or no.')
 
 """
 # Determing what to enter in the RP Remote Control

@@ -62,70 +62,70 @@ def test_fprime_ieqcons(x,*args):
 
 from time import time
 
-print "Unbounded optimization."
-print "Derivatives of objective function approximated."
+print("Unbounded optimization.")
+print("Derivatives of objective function approximated.")
 t0 = time()
 result = fmin_slsqp(testfunc, [-1.0,1.0], args=(-1.0,), iprint=2, full_output=1)
-print "Elapsed time:", 1000*(time()-t0), "ms"
-print "Results", result, "\n\n"
+print("Elapsed time:", 1000*(time()-t0), "ms")
+print("Results", result, "\n\n")
 
-print "Unbounded optimization."
-print "Derivatives of objective function provided."
+print("Unbounded optimization.")
+print("Derivatives of objective function provided.")
 t0 = time()
 result = fmin_slsqp(testfunc, [-1.0,1.0], fprime=testfunc_deriv, args=(-1.0,),
                iprint=2, full_output=1)
-print "Elapsed time:", 1000*(time()-t0), "ms"
-print "Results", result, "\n\n"
+print("Elapsed time:", 1000*(time()-t0), "ms")
+print("Results", result, "\n\n")
 
-print "Bound optimization (equality constraints)."
-print "Constraints implemented via lambda function."
-print "Derivatives of objective function approximated."
-print "Derivatives of constraints approximated."
+print("Bound optimization (equality constraints).")
+print("Constraints implemented via lambda function.")
+print("Derivatives of objective function approximated.")
+print("Derivatives of constraints approximated.")
 t0 = time()
 result = fmin_slsqp(testfunc, [-1.0,1.0], args=(-1.0,),
                eqcons=[lambda x, args: x[0]-x[1] ], iprint=2, full_output=1)
-print "Elapsed time:", 1000*(time()-t0), "ms"
-print "Results", result, "\n\n"
+print("Elapsed time:", 1000*(time()-t0), "ms")
+print("Results", result, "\n\n")
 
-print "Bound optimization (equality constraints)."
-print "Constraints implemented via lambda."
-print "Derivatives of objective function provided."
-print "Derivatives of constraints approximated."
+print("Bound optimization (equality constraints).")
+print("Constraints implemented via lambda.")
+print("Derivatives of objective function provided.")
+print("Derivatives of constraints approximated.")
 t0 = time()
 result = fmin_slsqp(testfunc, [-1.0,1.0], fprime=testfunc_deriv, args=(-1.0,),
                eqcons=[lambda x, args: x[0]-x[1] ], iprint=2, full_output=1)
-print "Elapsed time:", 1000*(time()-t0), "ms"
-print "Results", result, "\n\n"
+print("Elapsed time:", 1000*(time()-t0), "ms")
+print("Results", result, "\n\n")
 
-print "Bound optimization (equality and inequality constraints)."
-print "Constraints implemented via lambda."
-print "Derivatives of objective function provided."
-print "Derivatives of constraints approximated."
+print("Bound optimization (equality and inequality constraints).")
+print("Constraints implemented via lambda.")
+print("Derivatives of objective function provided.")
+print("Derivatives of constraints approximated.")
 t0 = time()
 result = fmin_slsqp(testfunc,[-1.0,1.0], fprime=testfunc_deriv, args=(-1.0,),
                eqcons=[lambda x, args: x[0]-x[1] ],
                ieqcons=[lambda x, args: x[0]-.5], iprint=2, full_output=1)
-print "Elapsed time:", 1000*(time()-t0), "ms"
-print "Results", result, "\n\n"
+print("Elapsed time:", 1000*(time()-t0), "ms")
+print("Results", result, "\n\n")
 
-print "Bound optimization (equality and inequality constraints)."
-print "Constraints implemented via function."
-print "Derivatives of objective function provided."
-print "Derivatives of constraints approximated."
+print("Bound optimization (equality and inequality constraints).")
+print("Constraints implemented via function.")
+print("Derivatives of objective function provided.")
+print("Derivatives of constraints approximated.")
 t0 = time()
 result = fmin_slsqp(testfunc, [-1.0,1.0], fprime=testfunc_deriv, args=(-1.0,),
                f_eqcons=test_eqcons, f_ieqcons=test_ieqcons,
                iprint=2, full_output=1)
-print "Elapsed time:", 1000*(time()-t0), "ms"
-print "Results", result, "\n\n"
+print("Elapsed time:", 1000*(time()-t0), "ms")
+print("Results", result, "\n\n")
 
-print "Bound optimization (equality and inequality constraints)."
-print "Constraints implemented via function."
-print "All derivatives provided."
+print("Bound optimization (equality and inequality constraints).")
+print("Constraints implemented via function.")
+print("All derivatives provided.")
 t0 = time()
 result = fmin_slsqp(testfunc,[-1.0,1.0], fprime=testfunc_deriv, args=(-1.0,),
                f_eqcons=test_eqcons, fprime_eqcons=test_fprime_eqcons,
                f_ieqcons=test_ieqcons, fprime_ieqcons=test_fprime_ieqcons,
                iprint=2, full_output=1)
-print "Elapsed time:", 1000*(time()-t0), "ms"
-print "Results", result, "\n\n"
+print("Elapsed time:", 1000*(time()-t0), "ms")
+print("Results", result, "\n\n")

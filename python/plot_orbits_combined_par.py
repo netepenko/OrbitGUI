@@ -11,6 +11,7 @@ from LT import parameterfile as PF
 from LT import pdatafile as DF
 import fileinput as FI
 import matplotlib.pyplot as pl
+import matplotlib.animation as animation
 from matplotlib.ticker import MaxNLocator
 import argparse as AG
 import glob as G
@@ -105,12 +106,40 @@ def plot_view_side(PDv, color = 'b', **kwargs):
     first = True
     for v in PDv:
         if first:
-            pl.plot(v.rt,v.zt, color = color, **kwargs)
+            pl.plot(v.rt,v.zt, color = color)
             first = False
         else:
             pl.plot(v.rt,v.zt,  color = color)
 
-
+def animate(li, PDv, color = 'b', **kwargs):
+    # Set up formatting for the movie files
+    Writer = animation.writers['ffmpeg']
+    writer = Writer(fps=60, metadata=dict(artist='Me'), bitrate=1800)
+    for v in PDv:    
+        fig = pl.gcf()
+        #ax = pl.gca()
+        fig.sca(li.ax1)
+        line1, = li.ax1.plot(v.rt,v.zt, color = color, **kwargs)
+        line2, = li.ax1.plot(v.rt[0],v.zt[0], 'o', color = 'lime', ms=3,**kwargs)
+        fig.sca(li.ax2)
+        line3, = li.ax2.plot(v.xt,v.yt, color = color, **kwargs)
+        line4, = li.ax2.plot(v.xt[0],v.yt[0], 'o', color = 'lime', ms=3, **kwargs)
+        
+      
+        #trying to animate
+        def update(num, x1, y1, x2, y2, line1, line2, line3, line4):
+            
+            line1.set_data(x1[:num], y1[:num])
+            line3.set_data(x2[:num], y2[:num])
+            line2.set_data(x1[num], y1[num])
+            line4.set_data(x2[num], y2[num])
+            
+            return line1, line2, line3, line4,
+    
+        ani = animation.FuncAnimation(fig, update, len(v.rt), fargs=[v.rt,v.zt, v.xt, v.yt, line1, line2, line3, line4],
+                                  interval=10, blit=True)
+        ani.save('test.mp4', writer = writer)
+        #pl.show()
 def main(c_file):
     control_file=c_file
 
@@ -176,14 +205,14 @@ def main(c_file):
         flux_data_file = pf.get_value('flux_data_file')
     except:
         flux_data_file = 'flux.data'
-    print 'using : ', flux_data_file, ' for flux and Em data' 
+    print('using : ', flux_data_file, ' for flux and Em data') 
     
     # flux limiter
     try:
         flux_limiter_file = pf.get_value('flux_limiter_file')
     except:
         flux_limiter_file = 'flux_limit.data'
-    print 'using : ', flux_limiter_file, ' for flux limit data' 
+    print('using : ', flux_limiter_file, ' for flux limit data') 
     
     
     # plot n-flux at mid-plane
@@ -202,20 +231,20 @@ def main(c_file):
             eq_file = d.split()[-1:][0]
     
     # flux
-    print 'reading flux data'
+    print('reading flux data')
     fl = gf.flux(output_dir + flux_data_file)
     
-    print 'reading flux limit data'
+    print('reading flux limit data')
     fll_d = DF.dfile(output_dir + flux_limiter_file)
     r_fll = np.array(fll_d.get_data('xlim'))
     z_fll = np.array(fll_d.get_data('ylim'))
     
     # limiter
-    print 'reading limiter data'
+    print('reading limiter data')
     li = gl.limiter(output_dir + 'limiter_drawing.data')
     #orbits
     
-    print 'reading orbits data'
+    print('reading orbits data')
     
     
     
@@ -241,7 +270,7 @@ def main(c_file):
         PD_v = [ vd.view(f) for f in PD_view_files]
         PD_views_f.append(PD_view_files)
         PD_views.append(PD_v)
-        print 'channel : ', cc, ', detecor : ', i_d, ' loaded'
+        print('channel : ', cc, ', detecor : ', i_d, ' loaded')
     PD_accept = np.array(PD_accept)
 
 
@@ -250,12 +279,13 @@ def main(c_file):
     #----------------------------------------------------------------------
     
     draw_top_view = pf.get_value('draw_top_view',var_type = pf.Bool)
+    draw_top_view= True
     if draw_top_view:
         f1 = pl.figure(figsize= (11,6))
 #        f1=pickle.load(file('neutron.pickle_both_view'))
     else:
-        f1 = pl.figure(figsize= (5,8))
-    f1.text(0.1, 0.925, eq_file)
+        f1 = pl.gcf()#figure(figsize= (5,8))
+    #f1.text(0.1, 0.925, eq_file)
     
     # draw 3 regions
     if draw_top_view:
@@ -299,6 +329,11 @@ def main(c_file):
     #----------------------------------------------------------------------
     # draw orbits
     #----------------------------------------------------------------------
+#    # animation part
+#    for i, PDv in enumerate(PD_views):
+#        icol = dn[i]-1
+#        animate(li, PDv, color = colors[icol]) 
+#        
     # axes = li.ax1.get_axes()
     axes = li.ax1
     f1.sca( axes )
@@ -306,9 +341,11 @@ def main(c_file):
         icol = dn[i]-1
         plot_view_side(PDv, color = colors[icol], label = 'Ch {0:d}'.format(dn[i]))
     
+    
     #pl.legend(fontsize = 12,loc = 'upper left')  
+    pl.title 
     # draw  orbits into the top view
-    draw_top_view=True
+    #draw_top_view=True
     if draw_top_view:
         # axes = li.ax2.get_axes()
         axes = li.ax2
@@ -332,9 +369,11 @@ def main(c_file):
                     Em_cont = pl.contourf(X,Y,Em_mid, v,cmap=colormap)
                 else:
                     Em_cont = pl.contour(X,Y,Em_mid, v,cmap=colormap)
- 
+
+
+
        
-        pl.legend(fontsize = 12, loc = 'upper left')
+        #pl.legend(fontsize = 12, loc = 'upper left')
 # The following code plots histogram of orbits midplane intersection radii    
 #    h_range =(0.0, 0.3)#(0.6, 1.6)
 #    r0 = []

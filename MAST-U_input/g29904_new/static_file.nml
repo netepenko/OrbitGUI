@@ -78,15 +78,15 @@
 
     D = 0.0354                          ! detector-collimator spacing (m)
 
-    RC(1) = 1.7e-3                      ! outer collimator radius (m)
-    RC(2) = 1.7e-3
-    RC(3) = 1.7e-3
-    RC(4) = 1.7e-3
+    RC(1) = 2.e-3                      ! outer collimator radius (m)
+    RC(2) = 2.e-3
+    RC(3) = 2.e-3
+    RC(4) = 2.e-3
 
-    RCD(1) = 1.7e-3                     ! close to detector collimator radius (m)
-    RCD(2) = 1.7e-3
-    RCD(3) = 1.7e-3
-    RCD(4) = 1.7e-3
+    RCD(1) = 2.e-3                     ! close to detector collimator radius (m)
+    RCD(2) = 2.e-3
+    RCD(3) = 2.e-3
+    RCD(4) = 2.e-3
 
 
     XC = 0.0013                         ! collimator size in m (half width in m) [5mm/2] (for rectangle approximation)

@@ -1,7 +1,7 @@
 import numpy as np
 
-xc, xd, d, xal = input('enter xc, xd, d, xal :')
-print 'entered : ', xc, xd, d, xal
+xc, xd, d, xal = eval(input('enter xc, xd, d, xal :'))
+print('entered : ', xc, xd, d, xal)
 coll_size = 2.*xc
 det_size = 2.*xd
 h_offset = xal
@@ -30,10 +30,10 @@ acc_f = full_opening * ( np.sin(theta1p) - np.sin(theta1n) ) + \
     ((det_size + coll_size - 2.*h_offset)/2.) * (np.sin(theta2p) - np.sin(theta1p) ) + \
     Dist*(np.cos(theta2p) - np.cos(theta1p))
 
-print "acc_1 = ",acc_1
-print "acc_2 = ", acc_2
-print "acc_3 = ", acc_3
-print "acc_4 = ", acc_4
-print "acc_5 = ", acc_5
-print 'acceptance', acc_f
-print 'sum(acc_i) = ', acc_1 + acc_2 + acc_3 + acc_4 + acc_5
+print("acc_1 = ",acc_1)
+print("acc_2 = ", acc_2)
+print("acc_3 = ", acc_3)
+print("acc_4 = ", acc_4)
+print("acc_5 = ", acc_5)
+print('acceptance', acc_f)
+print('sum(acc_i) = ', acc_1 + acc_2 + acc_3 + acc_4 + acc_5)

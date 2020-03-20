@@ -45,9 +45,9 @@ def pol_angle(rx,ry):
 #----------------------------------------------------------------------
 
 def print_init_par(par):
-    print "Initial parameters :"
+    print("Initial parameters :")
     for i,p in enumerate(par):
-        print "parameter : ", i, " = ", p
+        print("parameter : ", i, " = ", p)
 
 #----------------------------------------------------------------------
 # model functions
@@ -253,7 +253,7 @@ if model == 'pow':
     Em_func = Em_pow
     Em_func_der = Em_pow_der
     current_fit_par = [alpha, lam]
-    print 'initial parameters :', alpha,'\n', lam,'\n'
+    print('initial parameters :', alpha,'\n', lam,'\n')
 elif model == 'pol':
     # polynomial
     p0 = B.Parameter(.0)
@@ -342,7 +342,7 @@ elif model == 'two_gauss':
     current_fit_par = [A, posr, sigr, posz, sigz]
     print_init_par(current_fit_par)
 else:
-    print"unknown model", model
+    print("unknown model", model)
     sys.exit()
 
 # define the emissivity model
@@ -489,7 +489,7 @@ def S_f(x):
         # eff[i] += -(views[i].Sdl[Sdl_neg]).sum()*penn_factor
         eff[i] += -(views[i].Sdl[Sdl_neg]).sum()*penn_factor
     if neg_Sdl.max():
-        print "Neg. S values forced positive !"
+        print("Neg. S values forced positive !")
     return eff
 
 
@@ -509,10 +509,10 @@ stat = orbit_fit.stat
 fit_eff = stat['fitted values']
 # get covariance matrix
 if orbit_fit.covar == None:
-    for k in stat.keys():
-        print '------------------------------------------------------'
-        print k, ' = ', stat[k]
-    print '------------------------------------------------------'
+    for k in list(stat.keys()):
+        print('------------------------------------------------------')
+        print(k, ' = ', stat[k])
+    print('------------------------------------------------------')
     sys.exit('Sorry: fit did not converge !')
 #
 # take chi square into account for error estimate
@@ -582,13 +582,13 @@ if ymax > 1.2:
 
 pl.subplots_adjust(left=0.15, bottom = 0.15)
 
-print 'reduced chi square: ', orbit_fit.chi2_red
-print 'Model used : ', model
+print('reduced chi square: ', orbit_fit.chi2_red)
+print('Model used : ', model)
 for i,p_val in enumerate(current_fit_par):
-    print 'final parameter : ',i, ' = ', p_val
+    print('final parameter : ',i, ' = ', p_val)
 # that's it
 # output to used in other scripts
 for i,p in enumerate(current_fit_par):
-    print p.name, ' = ', 'B.Parameter( ', p.value, ')'
+    print(p.name, ' = ', 'B.Parameter( ', p.value, ')')
 #
 
