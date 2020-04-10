@@ -15,7 +15,10 @@ dtr = np.pi/180
 # ###################Defining Functions##############
 # get a polar angle for a 2d vector
 def pol_angle(rx, ry):
-    phi = np.arccos(rx/np.sqrt(rx**2+ry**2))
+    rxy = np.sqrt(rx**2+ry**2)
+    ok = rxy > 0.
+    phi = np.zeros_like(rx)
+    phi[ok] = np.arccos(rx[ok]/rxy[ok])
     # set all values where ry  < 0 to 2pi - phi
     phic = np.where(ry > 0, phi, 2.*np.pi - phi)
     #returned angle in radians
